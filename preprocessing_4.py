@@ -19,7 +19,7 @@ def check_empty_fields(path):
         df.fillna(numerical_df.mean(), inplace=True)
         
         #saving the filled dataset to a new CSV file
-        df.to_csv('housing_filled_fields.csv', index=False)
+        df.to_csv('housing_filled.csv', index=False)
         
         #checking if the missing values have been filled
         print("Missing values after filling:", df.isnull().sum().sum())
@@ -30,4 +30,4 @@ def check_empty_fields(path):
 
 check_empty_fields('housing.csv')
 #double checking if the missing values have been filled
-check_empty_fields('housing_filled_fields.csv')
+check_empty_fields('housing_filled.csv')

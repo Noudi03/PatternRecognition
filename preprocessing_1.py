@@ -10,4 +10,3 @@ categorical_features = df.select_dtypes(include=['object']).columns.to_list()
 #printing the results
 print("The numerical features are : ", numerical_features)
 print("The categorical_features are:", categorical_features)
-
