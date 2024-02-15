@@ -1,6 +1,6 @@
 import pandas as pd
 
-#loading the dataset
+#loading the housing dataset
 df = pd.read_csv('housing.csv')
 
 #identifying the numerical and categorical features

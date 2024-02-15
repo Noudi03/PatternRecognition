@@ -2,7 +2,7 @@ import pandas as pd
 from scipy.stats import zscore
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
-#loading the dataset
+#loading the housing dataset
 df = pd.read_csv('housing.csv')
 
 #selecting the numerical features only (could also return the values from the previous snippet might fix it)
