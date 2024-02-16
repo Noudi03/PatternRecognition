@@ -1,6 +1,14 @@
 import pandas as pd
 
 def check_empty_fields(path):
+    """Checking for any empty numerical fields in a CSV file and filling them with the mean of the column if any are found
+
+    Args:
+        path (str): Path to the CSV file
+    Returns:
+        None
+    """
+    
     df = pd.read_csv(path)
     numerical_df =  df.select_dtypes(include=['float64', 'int64'])
 
@@ -9,7 +17,7 @@ def check_empty_fields(path):
     #finding the number of empty numerical fields if any
     empty_field_count = numerical_df.isnull().sum().sum()
 
-#if there are any missing values, they are going to be filled with the mean value of that column
+#if there are any missing values, fill them with the mean value of that column
     if empty_fields:
         
         #printing the number of empty fields found

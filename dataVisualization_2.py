@@ -16,6 +16,9 @@ def plot_variable_pairs(data, variables):
         data (pandas.DataFrame): Our dataset containing the variables' values
         variables (list): A list of the variables we want to plot
     
+    Returns:
+        None
+    
     """
     
     #if we have a set of 2 variables, we will use the seaborn.scatterplot() function 

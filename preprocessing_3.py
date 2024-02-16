@@ -15,10 +15,13 @@ ohe_df = encoder.fit_transform(categorical_df)
 
 
 """
-*NOTE:the output is in the form of a binary matrix,where each row represents a sample and each column represents a category of the ocean proximity.
-*the possible categories are: '<1H OCEAN', 'INLAND', 'ISLAND', 'NEAR BAY', 'NEAR OCEAN'
-*every 0 value in the matrix represents the absence of a category, while every 1 value represents the presence of a category, 
-*thus only one category can have the value of 1 in each row.
+NOTE: The output is in the form of a binary matrix:
+- Each row represents a sample.
+- Each column represents a category of ocean proximity.
+- Possible categories: '<1H OCEAN', 'INLAND', 'ISLAND', 'NEAR BAY', 'NEAR OCEAN'.
+- Every 0 value represents the absence of a category.
+- Every 1 value represents the presence of a category, allowing only one category per row.
 """
+
 #printing the one hot encoded data
 print(ohe_df.toarray())
