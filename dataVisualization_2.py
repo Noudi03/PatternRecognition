@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-#loading the housing dataset with the filled mean values
+#loading the housing dataset with the filled median values
 df = pd.read_csv('housing_filled.csv')
 
 #setting the style for the plot

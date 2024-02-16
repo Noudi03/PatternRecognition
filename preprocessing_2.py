@@ -8,7 +8,7 @@ df = pd.read_csv('housing.csv')
 #selecting the numerical features only (could also return the values from the previous snippet might fix it)
 numerical_df = df[['longitude', 'latitude', 'housing_median_age', 'total_rooms', 'total_bedrooms', 'population', 'households', 'median_income', 'median_house_value']]
 
-#using 3 different scalers to compare the results
+#!using 3 different scalers to compare the results
 
 #applying the zscore scaler
 scaled_df_zscore = numerical_df.apply(zscore)

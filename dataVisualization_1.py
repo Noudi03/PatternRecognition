@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-#loading the housing dataset with the filled mean values
+#loading the housing dataset with the filled median values
 df = pd.read_csv('housing_filled.csv')
 
 #plotting the histogram for each one of the numerical columns
