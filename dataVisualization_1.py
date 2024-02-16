@@ -5,13 +5,15 @@ import matplotlib.pyplot as plt
 df = pd.read_csv('housing_filled.csv')
 
 #plotting the histogram for each one of the numerical columns
-df.hist(bins=50, figsize=(20,15))
+df.hist(bins=70, figsize=(20,15))
 plt.show()
 
 #calculating the frequency of each different possible value of the ocean proximity column
 ocean_proximity = df['ocean_proximity'].value_counts()
+
 #these 5 different values are the only possible ones, so a true histogram isn't the most visually appealing way to represent the data
 ocean_proximity.plot(kind='barh')
+
 #adding the title and labels
 plt.ylabel('Ocean Proximity')
 plt.xlabel('Frequency')
