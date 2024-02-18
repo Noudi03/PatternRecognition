@@ -1,3 +1,4 @@
+import pandas as pd
 from scipy.stats import zscore
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler
 from ..utils.utils import load_dataset,  get_numerical_features
@@ -41,6 +42,7 @@ def scale_data(df, scaler, scaler_name, check_std=True):
         scaled_df = numerical_df.apply(zscore)
     else:
         scaled_df = scaler.fit_transform(numerical_df)
+        scaled_df = pd.DataFrame(scaled_df, columns=numerical_df.columns)
     
     print(f"\nThe dataset has been scaled using {scaler_name}:\n")
     print(scaled_df)
