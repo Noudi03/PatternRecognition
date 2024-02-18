@@ -41,7 +41,9 @@ def scale_data(df, scaler, scaler_name, check_std=True):
     if scaler_name == "zscore":
         scaled_df = numerical_df.apply(zscore)
     else:
-        scaled_df = scaler.fit_transform(numerical_df)
+        
+        scaled_df = scaler.fit_transform(numerical_df) #returns a numpy.ndarray
+        #so we need to convert it back to a pd.Dataframe for displaying uniformity
         scaled_df = pd.DataFrame(scaled_df, columns=numerical_df.columns)
     
     print(f"\nThe dataset has been scaled using {scaler_name}:\n")
