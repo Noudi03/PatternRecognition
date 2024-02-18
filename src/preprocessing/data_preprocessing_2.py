@@ -5,7 +5,7 @@ from ..utils.utils import load_dataset,  get_numerical_features
 #loading the housing dataset with missing values filled
 df = load_dataset('housing_filled.csv')
 
-#!using 4 different scalers to compare the results
+#!using 3 different scalers to compare the results
 
 def scale_data(df, scaler, scaler_name, check_std=True):
     """Scaling the numerical features of a dataset using the specified scaler
@@ -15,8 +15,7 @@ def scale_data(df, scaler, scaler_name, check_std=True):
         df (pd.DataFrame): The dataset to be scaled
         scaler (sklearn.preprocessing._data.StandardScaler,
                 sklearn.preprocessing._data.MinMaxScaler, 
-                sklearn.preprocessing._data.RobustScaler
-                scipy.stats.zscore Scaler): The scaler to be used
+                sklearn.preprocessing._data.RobustScaler): The scaler to be used
         check_std (bool, optional): Whether to check the standard deviation of the columns. Defaults to True.
     Returns:
         pd.DataFrame: The scaled dataset
@@ -36,7 +35,7 @@ def scale_data(df, scaler, scaler_name, check_std=True):
                 print(f"The standard deviation of {column} is 0, so it is not possible to apply the scaler to this column")
                 numerical_df = numerical_df.drop(column, axis=1)
 
-        
+    
     scaled_df = scaler.fit_transform(numerical_df) #returns a numpy.ndarray
     #so we need to convert it back to a pd.Dataframe for displaying uniformity
     scaled_df = pd.DataFrame(scaled_df, columns=numerical_df.columns)
