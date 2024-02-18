@@ -4,7 +4,8 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler
 from preprocessing.numerical_scaling import scale_data
 from preprocessing.one_hot_encode import one_hot_encode_data
 from preprocessing.fill_data import check_empty_fields
-
+from visualization.plot_histograms import plot_histogram, plot_categorical
+from visualization.plot_pairs import plot_variable_pairs
 #loading the housing dataset
 df = load_dataset('housing.csv')
 
@@ -33,3 +34,14 @@ check_empty_fields(csv_file_path)
 #checking for empty fields in housing_filled.csv
 csv_file_path_filled = construct_absolute_path('housing_filled.csv')
 check_empty_fields(csv_file_path_filled)
+
+filled_df = load_dataset('housing_filled.csv')
+plot_categorical(filled_df)
+plot_histogram(filled_df)
+
+vars_to_plot_2 = ['total_rooms', 'total_bedrooms']
+plot_variable_pairs(df, vars_to_plot_2)
+vars_to_plot_3 = ['total_rooms', 'total_bedrooms', 'median_income']
+plot_variable_pairs(df, vars_to_plot_3)
+vars_to_plot_4 = ['total_rooms', 'total_bedrooms', 'median_income', 'median_house_value']
+plot_variable_pairs(df, vars_to_plot_4)
