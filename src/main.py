@@ -20,11 +20,8 @@ scaled_df_standard = scale_data(df, StandardScaler(), "StandardScaler", check_st
 scaled_df_MinMax = scale_data(df, MinMaxScaler(), "MinMaxScaler")
 scaled_df_Robust = scale_data(df, RobustScaler(), "RobustScaler")
 
-#getting the list of the categorical features
-categorical_features = get_categorical_features(df)
-
 #applying the one-hot encoding to the dataset
-ohe_df = one_hot_encode_data(df, categorical_features)
+ohe_df = one_hot_encode_data(df)
 
 #printing the data
 print(ohe_df)

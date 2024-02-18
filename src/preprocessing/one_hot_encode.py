@@ -1,11 +1,11 @@
 from sklearn.preprocessing import OneHotEncoder
+from .data_type_identifier import get_categorical_features
 
-def one_hot_encode_data(df, categorical_features):
+def one_hot_encode_data(df):
     """One-hot encodes the categorical features of a dataset
 
     Args:
         df (pd.Dataframe): The dataset to be one-hot encoded
-        categorical_features (list): The list of categorical features in the dataset
 
     Returns:
         result(numpy.ndarray): The one-hot encoded dataset
@@ -22,7 +22,7 @@ def one_hot_encode_data(df, categorical_features):
     encoder = OneHotEncoder()
     
     #selecting the categorical features only
-    categorical_df = df[categorical_features]
+    categorical_df = df[get_categorical_features(df)]
     
     #fitting and transforming the data
     ohe_df = encoder.fit_transform(categorical_df)
