@@ -21,7 +21,6 @@ def scale_data(df, scaler, scaler_name, check_std=True):
         check_std (bool, optional): Whether to check the standard deviation of the columns. Defaults to True.
     Returns:
         pd.DataFrame: The scaled dataset
-        check_std (bool, optional): Whether to check the standard deviation of the columns. Defaults to True.
     """
     
     #selecting the numerical features only
