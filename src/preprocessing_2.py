@@ -1,9 +1,12 @@
 import pandas as pd
 from scipy.stats import zscore
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from utils import construct_absolute_path
+
+csv_file_path = construct_absolute_path('housing.csv')
 
 #loading the housing dataset
-df = pd.read_csv('housing.csv')
+df = pd.read_csv(csv_file_path)
 
 #selecting the numerical features only (could also return the values from the previous snippet might fix it)
 numerical_df = df[['longitude', 'latitude', 'housing_median_age', 'total_rooms', 'total_bedrooms', 'population', 'households', 'median_income', 'median_house_value']]

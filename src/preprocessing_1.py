@@ -1,7 +1,11 @@
 import pandas as pd
+import os
+
+data_folder = os.path.join(os.path.dirname(__file__), '..', 'data')
+csv_file_path = os.path.join(data_folder, 'housing.csv')
 
 #loading the housing dataset
-df = pd.read_csv('housing.csv')
+df = pd.read_csv(csv_file_path)
 
 #identifying the numerical and categorical features
 numerical_features = df.select_dtypes(include=['float64', 'int64']).columns.to_list()

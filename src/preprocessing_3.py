@@ -1,8 +1,12 @@
 import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
+import os
+
+data_folder = os.path.join(os.path.dirname(__file__), '..', 'data')
+csv_file_path = os.path.join(data_folder, 'housing.csv')
 
 #loading the housing dataset
-df = pd.read_csv('housing.csv')
+df = pd.read_csv(csv_file_path)
 
 #selecting the categorical feature 
 categorical_df = df[['ocean_proximity']]

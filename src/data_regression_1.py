@@ -10,7 +10,7 @@ import numpy as np
 #NOTE: THE IMPLEMENTATION OF THE LOOP IS NOT CORRECT, ONLY THERE TO CHECK IF THE GENERAL IDEA WORKS
 
 #loading the housing dataset with the filled median values
-df = pd.read_csv('housing_filled.csv')
+df = pd.read_csv('../data/housing_filled.csv')
 
 #*Note: The dataset is already preprocessed and the missing values are filled with the median of the respective column.
 #a linear regression function g(x)= wx + b

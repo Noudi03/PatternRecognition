@@ -1,4 +1,5 @@
 import pandas as pd
+from utils import construct_absolute_path
 
 def check_empty_fields(path):
     """Checking for any empty numerical fields in a CSV file and filling them with the median of the column if any are found
@@ -26,8 +27,9 @@ def check_empty_fields(path):
         #filling the missing values with the median of the column
         df.fillna(numerical_df.median(), inplace=True)
         
-        #saving the filled dataset to a new CSV file
-        df.to_csv('housing_filled.csv', index=False)
+        #saving the filled dataset to a new CSV file in the data folder
+        csv_file_path_filled = construct_absolute_path('housing_filled.csv')
+        df.to_csv(csv_file_path_filled, index=False)
         
         #checking if the missing values have been filled
         print("Missing values after filling:", df.isnull().sum().sum())
@@ -36,6 +38,11 @@ def check_empty_fields(path):
         print("No empty fields found in the CSV file.")
 
 
-check_empty_fields('housing.csv')
-#double checking if the missing values have been filled
-check_empty_fields('housing_filled.csv')
+# For housing.csv
+csv_file_path = construct_absolute_path('housing.csv')
+check_empty_fields(csv_file_path)
+
+# For housing_filled.csv
+csv_file_path_filled = construct_absolute_path('housing_filled.csv')
+check_empty_fields(csv_file_path_filled)
+
