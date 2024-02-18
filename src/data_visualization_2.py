@@ -1,9 +1,11 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from utils import construct_absolute_path
 
 #loading the housing dataset with the filled median values
-df = pd.read_csv('housing_filled.csv')
+csv_file_path = construct_absolute_path('housing_filled.csv')
+df = pd.read_csv(csv_file_path)
 
 #setting the style for the plot
 sns.set_theme(style='whitegrid')
@@ -29,10 +31,9 @@ def plot_variable_pairs(data, variables):
         
     #if we have more than 2 variables, we will create a scatter matrix using the seaborn.pairplot() function
     elif len(variables) > 2:
-        pairs = sns.pairplot(data[variables], kind='scatter')
-        pairs.figure.suptitle(f"Scatter Matrix Plots for {', '.join(variables)}")
+        pairs = sns.pairplot(data[variables], kind='scatter', height=2.5, aspect=1)
+        pairs.figure.suptitle(f"Scatter Matrix Plots for {', '.join(variables)}", y=1)
     plt.show()
-
 
 
 vars_to_plot_2 = ['total_rooms', 'total_bedrooms']

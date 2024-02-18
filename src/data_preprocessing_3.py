@@ -1,11 +1,9 @@
 import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
-import os
-
-data_folder = os.path.join(os.path.dirname(__file__), '..', 'data')
-csv_file_path = os.path.join(data_folder, 'housing.csv')
+from utils import construct_absolute_path
 
 #loading the housing dataset
+csv_file_path = construct_absolute_path('housing.csv')
 df = pd.read_csv(csv_file_path)
 
 #selecting the categorical feature 

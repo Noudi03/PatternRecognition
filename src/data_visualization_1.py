@@ -1,8 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from utils import construct_absolute_path
 
 #loading the housing dataset with the filled median values
-df = pd.read_csv('housing_filled.csv')
+csv_file_path = construct_absolute_path('housing_filled.csv')
+df = pd.read_csv(csv_file_path)
 
 #plotting the histogram for each one of the numerical columns
 df.hist(bins=70, figsize=(20,15))

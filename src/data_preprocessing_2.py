@@ -3,9 +3,8 @@ from scipy.stats import zscore
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from utils import construct_absolute_path
 
-csv_file_path = construct_absolute_path('housing.csv')
-
 #loading the housing dataset
+csv_file_path = construct_absolute_path('housing.csv')
 df = pd.read_csv(csv_file_path)
 
 #selecting the numerical features only (could also return the values from the previous snippet might fix it)

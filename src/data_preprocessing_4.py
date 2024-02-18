@@ -2,7 +2,8 @@ import pandas as pd
 from utils import construct_absolute_path
 
 def check_empty_fields(path):
-    """Checking for any empty numerical fields in a CSV file and filling them with the median of the column if any are found
+    """Checking for any empty numerical fields in a CSV file and filling 
+        them with the median of the column if any are found
 
     Args:
         path (str): Path to the CSV file
@@ -38,11 +39,11 @@ def check_empty_fields(path):
         print("No empty fields found in the CSV file.")
 
 
-# For housing.csv
+#checking for empty fields in housing.csv
 csv_file_path = construct_absolute_path('housing.csv')
 check_empty_fields(csv_file_path)
 
-# For housing_filled.csv
+#checking for empty fields in housing_filled.csv
 csv_file_path_filled = construct_absolute_path('housing_filled.csv')
 check_empty_fields(csv_file_path_filled)
 
