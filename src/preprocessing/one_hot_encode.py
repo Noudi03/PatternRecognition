@@ -1,7 +1,4 @@
 from sklearn.preprocessing import OneHotEncoder
-from ..utils.utils import load_dataset, get_categorical_features
-
-df = load_dataset('housing.csv')
 
 def one_hot_encode_data(df, categorical_features):
     """One-hot encodes the categorical features of a dataset
@@ -30,17 +27,6 @@ def one_hot_encode_data(df, categorical_features):
     #fitting and transforming the data
     ohe_df = encoder.fit_transform(categorical_df)
     
-    print(f"\nThe dataset has been one-hot encoded:\n")
+    print(f"\nThe categorical feaures of the dataset have been one-hot encoded:\n")
     #converting the result from a scipy.sparse._csr.csr_matrix to a numpy.ndarray
-    result = ohe_df.toarray()
-
-    return result
-
-#getting the list of the categorical features
-categorical_features = get_categorical_features(df)
-
-#applying the one-hot encoding to the dataset
-ohe_df = one_hot_encode_data(df, categorical_features)
-
-#printing the data
-print(ohe_df)
+    return ohe_df.toarray()

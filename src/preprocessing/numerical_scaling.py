@@ -1,9 +1,5 @@
 import pandas as pd
-from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler
-from ..utils.utils import load_dataset,  get_numerical_features
-
-#loading the housing dataset with missing values filled
-df = load_dataset('housing_filled.csv')
+from .data_type_identifier import get_numerical_features
 
 #!using 3 different scalers to compare the results
 
@@ -43,7 +39,3 @@ def scale_data(df, scaler, scaler_name, check_std=True):
     print(f"\nThe dataset has been scaled using {scaler_name}:\n")
     print(scaled_df)
     return scaled_df
-
-scaled_df_standard = scale_data(df, StandardScaler(), "StandardScaler", check_std=False)
-scaled_df_MinMax = scale_data(df, MinMaxScaler(), "MinMaxScaler")
-scaled_df_Robust = scale_data(df, RobustScaler(), "RobustScaler")
