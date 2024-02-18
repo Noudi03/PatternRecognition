@@ -40,7 +40,6 @@ def fill_empty_fields(df, path):
 
     Args:
         df (pd.DataFrame): The dataset to be filled.
-        numerical_df (pd.Dataframe): The numerical fields of the dataframe
         path (str): Path to the CSV file where the filled dataset will be saved
     Returns:
         None

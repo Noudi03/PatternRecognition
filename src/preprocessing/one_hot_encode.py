@@ -29,4 +29,5 @@ def one_hot_encode_data(df):
     
     print(f"\nThe categorical feaures of the dataset have been one-hot encoded:\n")
     #converting the result from a scipy.sparse._csr.csr_matrix to a numpy.ndarray
-    return ohe_df.toarray()
+    result = ohe_df.toarray()
+    return result

@@ -14,7 +14,7 @@ def scale_data(df, scaler, scaler_name, check_std=True):
                 sklearn.preprocessing._data.RobustScaler): The scaler to be used
         check_std (bool, optional): Whether to check the standard deviation of the columns. Defaults to True.
     Returns:
-        pd.DataFrame: The scaled dataset
+        scaled.df (pd.DataFrame): The scaled dataset
     """
     
     #selecting the numerical features only
