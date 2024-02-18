@@ -1,5 +1,4 @@
 import pandas as pd
-from scipy.stats import zscore
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler
 from ..utils.utils import load_dataset,  get_numerical_features
 
@@ -37,19 +36,15 @@ def scale_data(df, scaler, scaler_name, check_std=True):
                 print(f"The standard deviation of {column} is 0, so it is not possible to apply the scaler to this column")
                 numerical_df = numerical_df.drop(column, axis=1)
 
-    if scaler_name == "zscore":
-        scaled_df = numerical_df.apply(zscore)
-    else:
         
-        scaled_df = scaler.fit_transform(numerical_df) #returns a numpy.ndarray
-        #so we need to convert it back to a pd.Dataframe for displaying uniformity
-        scaled_df = pd.DataFrame(scaled_df, columns=numerical_df.columns)
+    scaled_df = scaler.fit_transform(numerical_df) #returns a numpy.ndarray
+    #so we need to convert it back to a pd.Dataframe for displaying uniformity
+    scaled_df = pd.DataFrame(scaled_df, columns=numerical_df.columns)
     
     print(f"\nThe dataset has been scaled using {scaler_name}:\n")
     print(scaled_df)
     return scaled_df
 
-scaled_df_zscore = scale_data(df, zscore, "zscore", check_std=False)
-scaled_df_standard = scale_data(df, StandardScaler(), "StandardScaler")
+scaled_df_standard = scale_data(df, StandardScaler(), "StandardScaler", check_std=False)
 scaled_df_MinMax = scale_data(df, MinMaxScaler(), "MinMaxScaler")
 scaled_df_Robust = scale_data(df, RobustScaler(), "RobustScaler")
