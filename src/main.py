@@ -1,11 +1,17 @@
+#-------------------------------------------UTILS-----------------------------------------------------
 from utils.utils import load_dataset, construct_absolute_path
+#----------------------------------------PREPROCESSING------------------------------------------------
 from preprocessing.data_type_identifier import get_numerical_features, get_categorical_features
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler
 from preprocessing.numerical_scaling import scale_data
 from preprocessing.one_hot_encode import one_hot_encode_data
 from preprocessing.fill_data import check_empty_fields
+#--------------------------------------- VISUALIZATION------------------------------------------------
 from visualization.plot_histograms import plot_histogram, plot_categorical
 from visualization.plot_pairs import plot_variable_pairs
+#------------------------------------------REGRESSION-------------------------------------------------
+from regression.perceptron import prepare_data,perceptron
+#-----------------------------------------------------------------------------------------------------
 
 def main():
     #loading the housing dataset
@@ -37,6 +43,11 @@ def main():
     #checking for empty fields in housing_filled.csv
     csv_file_path_filled = construct_absolute_path('housing_filled.csv')
     check_empty_fields(csv_file_path_filled)
+
+
+    #TODO GENERATE INITIAL WEIGHTS AND CALL PERCEPTRON ALGORITHM HERE
+    #preparing data for perceptron algorithm
+    (input_data,target_data) = prepare_data()
 
     filled_df = load_dataset('housing_filled.csv')
     plot_categorical(filled_df)
