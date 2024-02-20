@@ -10,7 +10,7 @@ from preprocessing.fill_data import check_empty_fields
 from visualization.plot_histograms import plot_histogram, plot_categorical
 from visualization.plot_pairs import plot_variable_pairs
 #------------------------------------------REGRESSION-------------------------------------------------
-from regression.perceptron import prepare_data,perceptron
+from regression.perceptron import prepare_input_and_target_data,perceptron
 #-----------------------------------------------------------------------------------------------------
 
 def main():
@@ -47,7 +47,8 @@ def main():
 
     #TODO GENERATE INITIAL WEIGHTS AND CALL PERCEPTRON ALGORITHM HERE
     #preparing data for perceptron algorithm
-    (input_data,target_data) = prepare_data()
+    (input_data,target_data) = prepare_input_and_target_data()
+    
 
     filled_df = load_dataset('housing_filled.csv')
     plot_categorical(filled_df)

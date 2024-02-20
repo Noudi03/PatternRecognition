@@ -2,7 +2,8 @@ import pandas as pd
 import numpy as np
 
 
-def prepare_data():
+
+def prepare_input_and_target_data():
     '''
         INPUTS:
             nothing
@@ -22,13 +23,31 @@ def prepare_data():
     #?REMOVE THIS LATER ON,LOAD DATAFRAME FROM MAIN.PY?NOT CERTAIN YET
 
     #loading the housing dataset with the filled median values
-    df = pd.read_csv('../data/housing_filled.csv')
-    
+    df = pd.read_csv('data\housing_filled.csv')
     #separating target from input data
-    target_data = df["median_house_value"].copy()
+    value_data = df["median_house_value"].copy()
+
+    #setting threshold as the median of all values
+    threshold = value_data.median()
+
+    #populating the target_data vector for use in the model with 0 being given to data 
+    #with median value below or equal the threshold an the opposite for those above
+    target_data = np.where(value_data > threshold, 1, 0)
     df.drop("median_house_value",axis=1);
 
     return (df,target_data)
+
+
+def initialize_weight_data(df_len):
+    '''
+        INPUTS:
+            df_len(int): the number of rows in our dataframe.Can get by using the built-in len(df) function.
+
+        RETURNS:
+            weight_data(list): the initialized weight data for the first iteration of the model.
+    '''
+    
+
 
 
 def perceptron(input_data,weight_data,threshold):
@@ -38,7 +57,7 @@ def perceptron(input_data,weight_data,threshold):
             
             weight_data(pd.Dataframe): the weight vector W for our model,containing values W1 through Wn.
                         
-            bias(float): the bias we add to the sum before classification.Must be negative.
+            bias(float): the bias we add to the sum before classification.
         RETURNS:
             1 if above threshold,0 if its less or equal with the threshold. 
     '''
@@ -58,3 +77,7 @@ def perceptron(input_data,weight_data,threshold):
         return 1
     else:
         return 0
+    
+
+
+
