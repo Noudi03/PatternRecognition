@@ -2,12 +2,12 @@ import pandas as pd
 import numpy as np
 
 
-def split_dataframe_into_folds(k,df):
+def split_dataframe_into_folds(df,k = 10):
     '''
         INPUTS:
-            k(int): number of folds to split the dataframe into.
-
             df(pd.Dataframe): the dataframe to split.
+
+            k(int): number of folds to split the dataframe into.
         RETURNS:
             fold_list(list[0...k](pd.Dataframe)): the separated folds to be used for cross validation.
     '''
@@ -25,4 +25,4 @@ def split_dataframe_into_folds(k,df):
 
 #! REMOVE THIS SHIT BEFORE UPLOADING ONLY USE FOR TESTING THIS FUNCTION
 #df = pd.read_csv('data\housing_filled.csv')
-#split_dataframe_into_folds(10,df)   
+#split_dataframe_into_folds(df)   
