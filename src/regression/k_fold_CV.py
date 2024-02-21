@@ -13,11 +13,12 @@ def split_dataframe_into_folds(df,k = 10):
     '''
     
     #finding how many entries each fold out of the k to be created shall contain.
-    entry_num = len(df)//10
+    entry_num = len(df)//k
 
     shuffled_df = df.sample(frac = 1)
 
     fold_list = [shuffled_df[i:i+entry_num] for i in range(0,len(shuffled_df),entry_num)]
+    
     return fold_list
     #! REMOVE THIS SHIT BEFORE UPLOADING ONLY USE FOR TESTING THIS FUNCTION
     #for i in range(0,10):
