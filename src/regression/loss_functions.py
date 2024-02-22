@@ -13,7 +13,9 @@ def median_square_loss(prediction_data,target_data):
     cost_sum = 0
     #getting the number of entries to use to get the average later
     entry_num = len(prediction_data)
-
+    #log = open("loss_calc.txt","w")
+    #log.write(f"PREDICTION ENTRIES: {len(prediction_data)}\n")
+    #log.write(f"PREDICTION DATA: {prediction_data}\n")
     loss = []
     #print(f"PREDICTION DATA:{prediction_data}")
     #print(f"ENTRY COUNT IN CURRENT PREDICTION DATA:{len(prediction_data)}")
@@ -24,6 +26,8 @@ def median_square_loss(prediction_data,target_data):
 
     average = cost_sum/entry_num 
     #print(cost_sum,entry_num,average)
+    #log.write(f"COST_SUM: {cost_sum},AVERAGE: {average}")
+    #log.close()
     return (average,loss)
 
 def median_absolute_loss(prediction_data,target_data):
