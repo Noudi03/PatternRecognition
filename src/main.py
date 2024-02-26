@@ -26,6 +26,7 @@ def main():
     #checking for empty fields in housing_filled.csv
     csv_file_path_filled = construct_absolute_path('housing_filled.csv')
     check_empty_fields(csv_file_path_filled)
+    
     filled_df = load_dataset('housing_filled.csv')
 
     #!TODO Will probably use this for the regression algorithms idk yet no need to store all of them in variables
@@ -36,12 +37,13 @@ def main():
 
     #applying the one-hot encoding to the dataset
     ohe_df = one_hot_encode_data(filled_df)
-    #printing the data
     print(ohe_df)
     
+    #getting the final file we are going to use for the regression algorithms
     csv_file_path = construct_absolute_path('housing_final.csv')
     append_categorical_data(scaled_df_standard, ohe_df, csv_file_path)
 
+    #visualization
     plot_categorical(filled_df)
     plot_histogram(filled_df)
 
