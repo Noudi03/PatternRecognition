@@ -78,7 +78,7 @@ def activation_function(weighted_sum,threshold = 170000):
     if weighted_sum > threshold:
         return 1
     else:
-        return 0
+        return -1
     
 
     #TODO CHANGE FROM SIGMOID TO THE ONE HE WANTS AFTER YOU DONE TESTING
@@ -137,14 +137,14 @@ def perceptron(df,k=10,learning_rate = 0.1):
     #*Note: The dataset is already preprocessed and the missing values are filled with the median of the respective column.    
 
     #TODO FIX OCEAN PROXIMITY AND REMOVE THIS LINE OF CODE AS SOON AS POSSIBLE
-    df = df.drop("ocean_proximity", axis=1)
-    log = open("log.txt","a")
-    log.write("DROPPED OCEAN PROXIMITY\n")
-
-    epoch_counter = 1
+    #df = df.drop("ocean_proximity", axis=1)
+    #log = open("log.txt","a")
+    #log.write("DROPPED OCEAN PROXIMITY\n")
+    #log.close()
     
     #First we randomise and split our dataset into k folds
     fold_list = split_dataframe_into_folds(df,k)
+    log = open("log.txt","a")
     log.write(f"SPLIT DADAFRAME INTO {k} FOLDS\n")
     #then we initialize the matching target data for each fold
     #target_data_lists[0] should have the target data for fold_list[0] etc. etc.
@@ -179,9 +179,15 @@ def perceptron(df,k=10,learning_rate = 0.1):
 
     bias = 0
     weight_data = []
+    epoch_counter = 1
 
     passed_training = False
     while passed_training == False:
+        epoch_loss_square = 0
+        epoch_loss_absolute = 0
+
+        square_loss_sum = 0
+        absolute_loss_sum = 0
         for fold_index,fold in enumerate(input_data_lists):
             log = open("log.txt","a")
             log.write(f"CURRENT TESTING FOLD IS FOLD NO.{fold_index}\n")
@@ -242,14 +248,14 @@ def perceptron(df,k=10,learning_rate = 0.1):
                 #log.write(f"ROW_ID:{i},ROW:{row},WEIGHT:{weight_data},BIAS:{bias},SUM:{value_sum}")
                 #log.close()
                 prediction.append(activation_function(value_sum))
-                print(f"PREDICTION: {activation_function(value_sum)}")
+                #print(f"PREDICTION: {activation_function(value_sum)}")
 
             #calculating loss
             (average_cost,loss) = median_square_loss(prediction,training_target_set)
 
             log = open("log.txt","a")
 
-            log.write(f"TEST FOLD INDEX: {fold_index},EPOCH:{epoch_counter}\n")
+            #log.write(f"TEST FOLD INDEX: {fold_index},EPOCH:{epoch_counter}\n")
             
             for i,row in enumerate(training_set):
                 #log.write(f"TEST ID:{i},ROW DATA: {row},WEIGHTS: {weight_data},PREDICTION:{prediction[i]},TARGET:{training_target_set[i]},LEARNING RATE:{learning_rate}\n")
@@ -259,12 +265,12 @@ def perceptron(df,k=10,learning_rate = 0.1):
                 #log.write(f"EPOCH_COUNTER:{epoch_counter}\nWEIGHTS HAVE BEEN UPDATED TO:{weight_data}\nBIAS HAS BEEN UPDATED TO:{bias}\n")
                 #print(f"WEIGHTS UPDATED TO: {weight_data},BIAS UPDATED TO: {bias}")
                 
-            log.write(f"BEGINNING TESTING ON FOLD {fold_index}\n")
+            #log.write(f"BEGINNING TESTING ON FOLD {fold_index}\n")
 
             prediction_tests = []
 
-            log.write(f"TESTING COMMENCING,WEIGHT DATA AT THE MOMENT IS: {weight_data}\n")
-            log.write(f"NUMBER OF ENTRIES IN TESTING SET: {len(testing_set)}\n")
+            #log.write(f"TESTING COMMENCING,WEIGHT DATA AT THE MOMENT IS: {weight_data}\n")
+            #log.write(f"NUMBER OF ENTRIES IN TESTING SET: {len(testing_set)}\n")
             log.close()
             for i,row in enumerate(testing_set):
                 #log = open("log.txt","a")
@@ -275,12 +281,18 @@ def perceptron(df,k=10,learning_rate = 0.1):
             #calculating loss
             (average_cost_test,loss) = median_square_loss(prediction_tests,testing_target_set)
             (average_absolute_cost,loss) = median_absolute_loss(prediction_tests,testing_target_set)
-            log = open("log.txt","a")
-            #log.write(f"PREDICTION {prediction_tests}")
-            log.write(f"MEDIAN SQUARE LOSS CALCULATED DURING TESTING: {average_cost_test}\n")
-            log.write(f"MEDIAN ABSOLUTE LOSS CALCULATED DURING TESTING: {average_absolute_cost}\n")
+            print(f"MEDIAN SQUARE LOSS: {average_cost_test}")
+            square_loss_sum += average_cost_test
+            absolute_loss_sum += average_absolute_cost
+
+
         epoch_counter += 1    
-        if average_cost_test < 1:
+        epoch_loss_square += square_loss_sum/k
+        epoch_loss_absolute += absolute_loss_sum/k
+        log = open("log.txt","a")
+        log.write(f"EPOCH {epoch_counter},SQUARE LOSS: {epoch_loss_square},ABSOLUTE LOSS: {epoch_loss_absolute}")
+
+        if epoch_loss_square < 0.7:
             passed_training = True
 
         #TODO: ADD TEST AND TRAIN HERE
@@ -296,5 +308,5 @@ def perceptron(df,k=10,learning_rate = 0.1):
 
 #! REMOVE THIS SHIT ITS ONLY FOR TESTING PURPOSES WRYYYYYYYYYYYYYYYYYYYYYYY
 #loading the housing dataset with the filled median values
-df = pd.read_csv('data\housing_filled.csv')
+df = pd.read_csv('pain.csv')
 perceptron(df,10)
