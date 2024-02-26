@@ -47,7 +47,7 @@ def append_categorical_data(df, ohe_df, output_csv_path):
     Returns:
         None
     """
-    # Concatenate the one-hot encoded DataFrame with the original DataFrame
+    #concatenating the one-hot encoded DataFrame with the original DataFrame
     final_df = pd.concat([df, ohe_df], axis=1)
-    # Save the final DataFrame to a CSV file
+    #saving the final DataFrame to a CSV file
     final_df.to_csv(output_csv_path, index=False)
