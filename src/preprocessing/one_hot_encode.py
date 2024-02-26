@@ -1,5 +1,6 @@
 from sklearn.preprocessing import OneHotEncoder
 from .data_type_identifier import get_categorical_features
+import pandas as pd
 
 def one_hot_encode_data(df):
     """One-hot encodes the categorical features of a dataset
@@ -27,7 +28,17 @@ def one_hot_encode_data(df):
     #fitting and transforming the data
     ohe_df = encoder.fit_transform(categorical_df)
     
-    print(f"\nThe categorical feaures of the dataset have been one-hot encoded:\n")
     #converting the result from a scipy.sparse._csr.csr_matrix to a numpy.ndarray
-    result = ohe_df.toarray()
-    return result
+    array_ohe = ohe_df.toarray()
+    encoded_columns = encoder.get_feature_names_out(['ocean_proximity'])
+    encoded_dataset = pd.DataFrame(array_ohe, columns=encoded_columns, dtype=int)
+    
+    print(f"\nThe categorical features of the dataset have been one-hot encoded:\n")
+    
+    return encoded_dataset
+
+def append_categorical_data(df, ohe_df, output_csv_path):
+    # Concatenate the one-hot encoded DataFrame with the original DataFrame
+    final_df = pd.concat([df, ohe_df], axis=1)
+    # Save the final DataFrame to a CSV file
+    final_df.to_csv(output_csv_path, index=False)
