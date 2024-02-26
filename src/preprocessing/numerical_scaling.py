@@ -1,5 +1,6 @@
 import pandas as pd
 from .data_type_identifier import get_numerical_features
+from utils.utils import construct_absolute_path
 
 #!using 3 different scalers to compare the results
 
@@ -35,6 +36,10 @@ def scale_data(df, scaler, scaler_name, check_std=True):
     scaled_df = scaler.fit_transform(numerical_df) #returns a numpy.ndarray
     #so we need to convert it back to a pd.Dataframe for displaying uniformity
     scaled_df = pd.DataFrame(scaled_df, columns=numerical_df.columns)
+    
+    csv_file_name = f'{scaler_name}_scaled.csv'
+    csv_file_path = construct_absolute_path(csv_file_name)
+    scaled_df.to_csv(csv_file_path, index=False)
     
     print(f"\nThe dataset has been scaled using {scaler_name}:\n")
     print(scaled_df)
