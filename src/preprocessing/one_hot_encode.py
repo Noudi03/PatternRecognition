@@ -38,6 +38,15 @@ def one_hot_encode_data(df):
     return encoded_dataset
 
 def append_categorical_data(df, ohe_df, output_csv_path):
+    """Appending the one hot encoded categorical data to the original dataset and saving it to a CSV file
+
+    Args:
+        df (pd.Dataframe): The Dataframe where the one-hot encoded data will be appended
+        ohe_df (pd.Dataframe): DataFrame containing the one-hot encoded categorical data
+        output_csv_path (str): Path to the CSV file where the dataset will be saved
+    Returns:
+        None
+    """
     # Concatenate the one-hot encoded DataFrame with the original DataFrame
     final_df = pd.concat([df, ohe_df], axis=1)
     # Save the final DataFrame to a CSV file
