@@ -1,7 +1,6 @@
 import pandas as pd
-
-from .data_type_identifier import get_numerical_features
-from utils.utils import construct_absolute_path
+from preprocessing import get_numerical_features
+from utils import construct_absolute_path
 
 
 def check_empty_fields(path):

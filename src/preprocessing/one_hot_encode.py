@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
 
-from .data_type_identifier import get_categorical_features
+from preprocessing import get_categorical_features
 
 
 def one_hot_encode_data(df):

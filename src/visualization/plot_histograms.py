@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-from preprocessing.data_type_identifier import get_numerical_features
+from preprocessing import get_numerical_features
 
 
 def plot_histogram(df):

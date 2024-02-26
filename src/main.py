@@ -1,12 +1,8 @@
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler
 
-from preprocessing.data_type_identifier import get_numerical_features, get_categorical_features
-from preprocessing.numerical_scaling import scale_data
-from preprocessing.one_hot_encode import one_hot_encode_data, append_categorical_data
-from preprocessing.fill_data import check_empty_fields
-from visualization.plot_histograms import plot_histogram, plot_categorical
-from visualization.plot_pairs import plot_variable_pairs
-from utils.utils import load_dataset, construct_absolute_path
+from visualization import plot_histogram, plot_categorical, plot_variable_pairs
+from utils import load_dataset, construct_absolute_path
+from preprocessing import get_numerical_features, get_categorical_features, check_empty_fields, ohe_data, append_data, scale_data
 
 
 def main():
@@ -38,12 +34,12 @@ def main():
     scale_data(filled_df, RobustScaler(), "RobustScaler")
 
     # applying the one-hot encoding to the dataset
-    ohe_df = one_hot_encode_data(filled_df)
+    ohe_df = ohe_data(filled_df)
     print(ohe_df)
 
     # getting the final file we are going to use for the regression algorithms
     csv_file_path = construct_absolute_path('housing_final.csv')
-    append_categorical_data(scaled_df_standard, ohe_df, csv_file_path)
+    append_data(scaled_df_standard, ohe_df, csv_file_path)
 
     # visualization
     plot_categorical(filled_df)
