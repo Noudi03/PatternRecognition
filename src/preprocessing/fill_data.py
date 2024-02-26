@@ -24,7 +24,7 @@ def check_empty_fields(path):
         empty_field_count = numerical_df.isnull().sum().sum()
         
         #printing the number of empty fields found
-        print(f"{empty_field_count} empty fields found in the CSV file.")
+        print(f"\n{empty_field_count} empty fields found in the CSV file.")
         
         #saving the filled dataset to a new CSV file in the data folder
         csv_file_path_filled = construct_absolute_path('housing_filled.csv')
@@ -33,7 +33,7 @@ def check_empty_fields(path):
         fill_empty_fields(df, csv_file_path_filled)
         
     else:
-        print("No empty fields found in the CSV file.")
+        print("No empty fields found in the CSV file.\n")
 
 def fill_empty_fields(df, path):
     """Filling filled_df, 'filled_df, 'filled_df, 'filledpty numerical fields in the dataset with the median of the column
