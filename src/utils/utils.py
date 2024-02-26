@@ -1,5 +1,7 @@
 import os
+
 import pandas
+
 
 def construct_absolute_path(file_name):
     """Constructing the absolute path to a file in the data folder
@@ -11,6 +13,7 @@ def construct_absolute_path(file_name):
     """
     data_folder = os.path.join(os.path.dirname(__file__), '..', '..', 'data')
     return os.path.join(data_folder, file_name)
+
 
 def load_dataset(file_name):
     """Loading the CSV file of our dataset into a pandas DataFrame

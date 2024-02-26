@@ -1,8 +1,10 @@
 import pandas as pd
+
 from .data_type_identifier import get_numerical_features
 from utils.utils import construct_absolute_path
 
 #!using 3 different scalers to compare the results
+
 
 def scale_data(df, scaler, scaler_name, check_std=True):
     """Scaling the numerical features of a dataset using the specified scaler
@@ -17,30 +19,30 @@ def scale_data(df, scaler, scaler_name, check_std=True):
     Returns:
         scaled.df (pd.DataFrame): The scaled dataset
     """
-    
-    #selecting the numerical features only
+
+    # selecting the numerical features only
     numerical_df = df[get_numerical_features(df)]
-    
-    #checking to see what the standard deviation of each column is
-    #there could be a possible division by 0 if the standard deviation is 0
-    #in this case this isn't a problem but i'm leaving this here anyway
+
+    # checking to see what the standard deviation of each column is
+    # there could be a possible division by 0 if the standard deviation is 0
+    # in this case this isn't a problem but i'm leaving this here anyway
     if not check_std:
         for column in numerical_df.columns:
             column_std = numerical_df[column].std()
             print(f"The standard deviation of {column} is: {column_std}")
             if column_std == 0:
-                print(f"The standard deviation of {column} is 0, so it is not possible to apply the scaler to this column")
+                print(
+                    f"The standard deviation of {column} is 0, so it is not possible to apply the scaler to this column")
                 numerical_df = numerical_df.drop(column, axis=1)
 
-    
-    scaled_df = scaler.fit_transform(numerical_df) #returns a numpy.ndarray
-    #so we need to convert it back to a pd.Dataframe for displaying uniformity
+    scaled_df = scaler.fit_transform(numerical_df)  # returns a numpy.ndarray
+    # so we need to convert it back to a pd.Dataframe for displaying uniformity
     scaled_df = pd.DataFrame(scaled_df, columns=numerical_df.columns)
-    
+
     csv_file_name = f'{scaler_name}_scaled.csv'
     csv_file_path = construct_absolute_path(csv_file_name)
     scaled_df.to_csv(csv_file_path, index=False)
-    
+
     print(f"\nThe dataset has been scaled using {scaler_name}:\n")
     print(scaled_df)
     return scaled_df
