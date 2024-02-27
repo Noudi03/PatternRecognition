@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def median_square_loss(prediction_data,target_data):
     '''
         INPUTS:
@@ -55,11 +58,32 @@ def median_absolute_loss(prediction_data,target_data):
     return (average,loss)
 
 
+def calculate_square_error_matrix(target_matrix,prediction_matrix):
+    '''
+        INPUTS:
+            target_matrix(np.array): The target matrix Y consisting of the target data that we aim to achieve with our model
 
-#TODO REMOVE THESE LATER THEY ARE ONLY FOR TESTING
-'''
-prediction = [1,0,0,1,1,1,1,1,1,0,0,0,0]
-target =     [1,1,1,1,1,1,1,1,1,0,0,0,0]
-median_absolute_loss(prediction,target)
-median_square_loss(prediction,target)
-'''
+            prediction_matrix(np.array): The prediction matrix Y' consisting of the prediction data our model actually calculated
+        RETURNS:
+            E_matrix(np.array): The error matrix showing us the square loss of each individual prediction 
+    '''
+    #*FOR COST CALCULATIONS TO INITIALIZE THE E MATRIX WE WILL USE THE SQUARE LOSS ALGORITHM,WITH FORMULA BEING:
+    #*E = (Y - Y')^2 
+    E_matrix = np.power(target_matrix - prediction_matrix,2)
+    return(E_matrix)
+
+
+
+def calculate_absolute_error_matrix(target_matrix,prediction_matrix):
+    '''
+        INPUTS:
+            target_matrix(np.array): The target matrix Y consisting of the target data that we aim to achieve with our model
+
+            prediction_matrix(np.array): The prediction matrix Y' consisting of the prediction data our model actually calculated
+        RETURNS:
+            E_matrix(np.array): The error matrix showing us the absolute loss of each individual prediction 
+    '''
+    #*FOR COST CALCULATIONS TO INITIALIZE THE E MATRIX WE WILL USE THE SQUARE LOSS ALGORITHM,WITH FORMULA BEING:
+    #*E = |Y - Y'| 
+    E_matrix = abs(target_matrix - prediction_matrix)
+    return(E_matrix)
