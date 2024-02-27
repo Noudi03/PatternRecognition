@@ -1,0 +1,22 @@
+[project]
+name = "PatternRecognition"
+description = "Pattern Recognition assignment"
+version="0.4.1"
+authors = [
+    { name = "Eleni Katsimicha", email = "helenkatsimiha@gmail.com"}
+]
+classifiers = ["Programming Language :: Python :: 3.11.0"]
+dependencies = [
+    "pandas",
+    "scikit-learn",
+    "numpy",
+    "matplotlib",
+    "seaborn"
+]
+[tool.setuptools]
+packages = [ "PatternRecognition" ]
+package-dir = {"" = "src"}
+
+[project.urls]
+Repository = "https://github.com/noudi03/PatternRecognition"
+Documentation =  "https://readthedocs.org"
