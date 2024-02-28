@@ -73,9 +73,8 @@ def calculate_sum(input_list,weight_list,bias):
     sum += bias
     return sum
 
-#! DONT FORGET TO MAKE IT SO THE THRESHOLD IS DYNAMIC
-def activation_function(weighted_sum,threshold = 170000):        
-    if weighted_sum > threshold:
+def activation_function(weighted_sum):        
+    if weighted_sum > 0:
         return 1
     else:
         return -1
@@ -125,11 +124,9 @@ def perceptron(df,k=10,learning_rate = 0.1):
             input_data(pd.Dataframe): the input vector X for our model,containing values X1 through Xn.
             
             weight_data(pd.Dataframe): the weight vector W for our model,containing values W1 through Wn.                        
-        RETURNS:
-            1 if above threshold,0 if its less or equal with the threshold. 
     '''
 
-    #!USED TO OUTPUT INFO HERE SINCE 
+    #!USED TO OUTPUT INFO HERE 
     log = open("log.txt","w")
     log.write("Perceptron main function just begun execution\n")
     log.close()
@@ -177,130 +174,166 @@ def perceptron(df,k=10,learning_rate = 0.1):
     #iterating through each fold of the list
     #we use the input data since it is essentially the folded dataframe but with the target data dropped
 
-    bias = 0
-    weight_data = []
-    epoch_counter = 1
+    #!  COMMENTED THESE OUT IN CASE WE CHANGE OUR MINDS LATER
+    #!bias = 0
+    #!weight_data = []
+    #!epoch_counter = 1
+    #!epoch_loss_square = 0
+    #!epoch_loss_absolute = 0
 
-    passed_training = False
-    while passed_training == False:
-        epoch_loss_square = 0
-        epoch_loss_absolute = 0
-
-        square_loss_sum = 0
-        absolute_loss_sum = 0
-        for fold_index,fold in enumerate(input_data_lists):
-            log = open("log.txt","a")
-            log.write(f"CURRENT TESTING FOLD IS FOLD NO.{fold_index}\n")
-            #! REMOVE THIS LATER ONLY USE FOR TESTING
-            #print("Fold index is:",fold_index)
-
-            current_fold = []
-            
-
-            #initilizing the training sets
-            training_set = []
-            training_target_set = []
-            #initializing the testing sets
-            testing_set = []
-            testing_target_set = []
-
-            for index in range (0,len(fold_list)):
-                if index != fold_index:
-                    current_fold = input_data_lists[index].values.tolist()
-                    current_target_data = target_data_lists[index]
-                    #! REMOVE THIS LATER ONLY USE FOR TESTING
-                    #print("Index is:",index)
-                    #print(current_fold)
-
-
-                    #adding the data to our training set as long as its not the current hold set
-                    #while also adding the equivalent target data to be used for the training and evaluation of the model
-                    training_set += current_fold 
-
-                    #*NOTE: For some reason the target data seems to be a np array instead of a pd dataframe?Not certain why
-                    #*might end up moving this conversion to list to the initialize_target_data function and update the 
-                    #*documentation there later
-                    training_target_set += list(current_target_data)                
-                else:
-                    current_fold = input_data_lists[index].values.tolist()
-                    current_target_data = target_data_lists[index]
-                    testing_set += current_fold
-                    testing_target_set += list(current_target_data)
-            
-            if bias == 0:
-                bias = round(random.uniform(-100,100), 2)
-            if len(weight_data) == 0:
-                weight_data = initialize_weight_data(len(input_data_lists[0].columns))  
-
-            #print(weight_data)
-            log.write(f"ABOUT TO START THE TRAINING PROCESS WITH TESTING FOLD NO.{fold_index}\n")
-            log.close()
-            #iterating through the training set
-            passed_training = False
-            #calculating the predictions of the training set
-            prediction = []
-            for i,row in enumerate(training_set):
-                #iterating through the elements of each row 
-                value_sum = calculate_sum(row,weight_data,bias)
-                #print(f"VALUE_SUM: {value_sum}")
-                #!FOR TESTS ONLY REMOVE LATER
-                #log = open("log.txt","a")
-                #log.write(f"ROW_ID:{i},ROW:{row},WEIGHT:{weight_data},BIAS:{bias},SUM:{value_sum}")
-                #log.close()
-                prediction.append(activation_function(value_sum))
-                #print(f"PREDICTION: {activation_function(value_sum)}")
-
-            #calculating loss
-            (average_cost,loss) = median_square_loss(prediction,training_target_set)
-
-            log = open("log.txt","a")
-
-            #log.write(f"TEST FOLD INDEX: {fold_index},EPOCH:{epoch_counter}\n")
-            
-            for i,row in enumerate(training_set):
-                #log.write(f"TEST ID:{i},ROW DATA: {row},WEIGHTS: {weight_data},PREDICTION:{prediction[i]},TARGET:{training_target_set[i]},LEARNING RATE:{learning_rate}\n")
-                weight_data = update_weights(row,weight_data,prediction[i],training_target_set[i],learning_rate)
-                bias = update_bias(bias,learning_rate,prediction[i],training_target_set[i])    
-                log = open("log.txt","a")
-                #log.write(f"EPOCH_COUNTER:{epoch_counter}\nWEIGHTS HAVE BEEN UPDATED TO:{weight_data}\nBIAS HAS BEEN UPDATED TO:{bias}\n")
-                #print(f"WEIGHTS UPDATED TO: {weight_data},BIAS UPDATED TO: {bias}")
-                
-            #log.write(f"BEGINNING TESTING ON FOLD {fold_index}\n")
-
-            prediction_tests = []
-
-            #log.write(f"TESTING COMMENCING,WEIGHT DATA AT THE MOMENT IS: {weight_data}\n")
-            #log.write(f"NUMBER OF ENTRIES IN TESTING SET: {len(testing_set)}\n")
-            log.close()
-            for i,row in enumerate(testing_set):
-                #log = open("log.txt","a")
-                #log.write(f"TEST ID:{i},ROW DATA: {row},PREDICTION:{prediction[i]},TARGET:{training_target_set[i]}")
-                #log.close()
-                value_sum = calculate_sum(row,weight_data,bias)
-                prediction_tests.append(activation_function(value_sum))
-            #calculating loss
-            (average_cost_test,loss) = median_square_loss(prediction_tests,testing_target_set)
-            (average_absolute_cost,loss) = median_absolute_loss(prediction_tests,testing_target_set)
-            print(f"MEDIAN SQUARE LOSS: {average_cost_test}")
-            square_loss_sum += average_cost_test
-            absolute_loss_sum += average_absolute_cost
-
-
-        epoch_counter += 1    
-        epoch_loss_square += square_loss_sum/k
-        epoch_loss_absolute += absolute_loss_sum/k
+    square_loss_sum = 0
+    absolute_loss_sum = 0
+    for fold_index,fold in enumerate(input_data_lists):
         log = open("log.txt","a")
-        log.write(f"EPOCH {epoch_counter},SQUARE LOSS: {epoch_loss_square},ABSOLUTE LOSS: {epoch_loss_absolute}")
+        log.write(f"CURRENT TESTING FOLD IS FOLD NO.{fold_index}\n")
+        #! REMOVE THIS LATER ONLY USE FOR TESTING
+        #print("Fold index is:",fold_index)
 
-        if epoch_loss_square < 0.7:
-            passed_training = True
+        current_fold = []
+        
 
-        #TODO: ADD TEST AND TRAIN HERE
+        #initilizing the training sets
+        training_set = []
+        training_target_set = []
+        #initializing the testing sets
+        testing_set = []
+        testing_target_set = []
+
+        #initializing bias and weights for each fold's model
+        bias = round(random.uniform(-100,100), 2)
+        weight_data = initialize_weight_data(len(input_data_lists[0].columns))  
+
+
+
+        for index in range (0,len(fold_list)):
+            if index != fold_index:
+                current_fold = input_data_lists[index].values.tolist()
+                current_target_data = target_data_lists[index]
+                #! REMOVE THIS LATER ONLY USE FOR TESTING
+                #print("Index is:",index)
+                #print(current_fold)
+
+
+                #adding the data to our training set as long as its not the current hold set
+                #while also adding the equivalent target data to be used for the training and evaluation of the model
+                training_set += current_fold 
+
+                #*NOTE: For some reason the target data seems to be a np array instead of a pd dataframe?Not certain why
+                #*might end up moving this conversion to list to the initialize_target_data function and update the 
+                #*documentation there later
+                training_target_set += list(current_target_data)                
+            else:
+                current_fold = input_data_lists[index].values.tolist()
+                current_target_data = target_data_lists[index]
+                testing_set += current_fold
+                testing_target_set += list(current_target_data)
+        
+        #!COMMENTED OUT FOR NOW IN CASE WE DECIDE TO UNDO THIS CHANGE.DONT FORGET TO REMOVE LATER
+        '''
+        if bias == 0:
+            bias = round(random.uniform(-100,100), 2)
+        if len(weight_data) == 0:
+            weight_data = initialize_weight_data(len(input_data_lists[0].columns))  
+        '''
+        #print(weight_data)
+        log.write(f"ABOUT TO START THE TRAINING PROCESS WITH TESTING FOLD NO.{fold_index}\n")
+        log.close()
+        #iterating through the training set
+        passed_training = False
+        #calculating the predictions of the training set
+        prediction = []
+        for i,row in enumerate(training_set):
+            #iterating through the elements of each row 
+            value_sum = calculate_sum(row,weight_data,bias)
+            #print(f"VALUE_SUM: {value_sum}")
+            #!FOR TESTS ONLY REMOVE LATER
+            #log = open("log.txt","a")
+            #log.write(f"ROW_ID:{i},ROW:{row},WEIGHT:{weight_data},BIAS:{bias},SUM:{value_sum}")
+            #log.close()
+            prediction.append(activation_function(value_sum))
+            #print(f"PREDICTION: {activation_function(value_sum)}")
+
+        #calculating loss
+        average_cost = median_square_loss(prediction,training_target_set)
+
+        log = open("log.txt","a")
+
+        #log.write(f"TEST FOLD INDEX: {fold_index},EPOCH:{epoch_counter}\n")
+        
+        for i,row in enumerate(training_set):
+            #log.write(f"TEST ID:{i},ROW DATA: {row},WEIGHTS: {weight_data},PREDICTION:{prediction[i]},TARGET:{training_target_set[i]},LEARNING RATE:{learning_rate}\n")
+            weight_data = update_weights(row,weight_data,prediction[i],training_target_set[i],learning_rate)
+            bias = update_bias(bias,learning_rate,prediction[i],training_target_set[i])    
+            log = open("log.txt","a")
+            #log.write(f"EPOCH_COUNTER:{epoch_counter}\nWEIGHTS HAVE BEEN UPDATED TO:{weight_data}\nBIAS HAS BEEN UPDATED TO:{bias}\n")
+            #print(f"WEIGHTS UPDATED TO: {weight_data},BIAS UPDATED TO: {bias}")
+            
+        #log.write(f"BEGINNING TESTING ON FOLD {fold_index}\n")
+
+        prediction_tests = []
+
+        #log.write(f"TESTING COMMENCING,WEIGHT DATA AT THE MOMENT IS: {weight_data}\n")
+        #log.write(f"NUMBER OF ENTRIES IN TESTING SET: {len(testing_set)}\n")
+        log.close()
+        for i,row in enumerate(testing_set):
+            #log = open("log.txt","a")
+            #log.write(f"TEST ID:{i},ROW DATA: {row},PREDICTION:{prediction[i]},TARGET:{training_target_set[i]}")
+            #log.close()
+            value_sum = calculate_sum(row,weight_data,bias)
+            prediction_tests.append(activation_function(value_sum))
+        #calculating loss
+        average_cost_test = median_square_loss(prediction_tests,testing_target_set)
+        average_absolute_cost = median_absolute_loss(prediction_tests,testing_target_set)
+        #!print(f"MEDIAN SQUARE LOSS: {average_cost_test}")
+        square_loss_sum += average_cost_test
+        absolute_loss_sum += average_absolute_cost
+
+
+    #!epoch_counter += 1    
+    #!epoch_loss_square += square_loss_sum/k
+    #!epoch_loss_absolute += absolute_loss_sum/k
+    #!log = open("log.txt","a")
+    #!log.write(f"EPOCH {epoch_counter},SQUARE LOSS: {epoch_loss_square},ABSOLUTE LOSS: {epoch_loss_absolute}")
+    '''
+    if epoch_loss_square < 0.7:
+        passed_training = True
+    '''
+    #TODO: ADD TEST AND TRAIN HERE
 
     #!FOR TESTING ONLY DO REMOVE LATER
     #print(f"TRAINING SET ENTRY COUNT: {len(training_set)}")
     #print(f"TESTING SET ENTRY COUNT: {len(testing_set)}")
     #print(f"TOTAL SET ENTRY COUNT: {len(training_set)+len(testing_set)}")
+
+
+    #*TRAINING ON ENTIRE DATASET AFTER K-CROSS VALIDATION HAS FINISHED RUNNING
+    bias = round(random.uniform(-100,100), 2)
+    weight_data = initialize_weight_data(len(input_data_lists[0].columns))  
+    temp = df.drop('median_house_value', axis=1)
+    input_data = temp.to_numpy()
+    temp = df['median_house_value']
+    target_data = temp.to_numpy()
+
+    passed_training = False
+    while passed_training == False:
+        prediction = []
+        
+        #*MAKING PREDICTIONS
+        for row in input_data:
+            value_sum = calculate_sum(row,weight_data,bias)
+            prediction.append(activation_function(value_sum))
+
+        #*UPDATING WEIGHTS + BIAS
+        for i,row in enumerate(input_data):
+            weight_data = update_weights(row,weight_data,prediction[i],target_data[i],learning_rate)
+            bias = update_bias(bias,learning_rate,prediction[i],target_data[i])
+
+        #*CALCULATING MEDIAN SQUARE ERROR(MSE) AND MEDIAN ABSOLUTE ERROR(MAE)
+        mse = median_square_loss(prediction,target_data)
+        mae = median_absolute_loss(prediction,target_data)
+        print(f"FINAL MSE: {mse},FINAL MAE: {mae}")
+        if mse < 0.8:
+            passed_training = True
 
 
 

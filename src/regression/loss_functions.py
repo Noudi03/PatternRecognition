@@ -31,7 +31,7 @@ def median_square_loss(prediction_data,target_data):
     #print(cost_sum,entry_num,average)
     #log.write(f"COST_SUM: {cost_sum},AVERAGE: {average}")
     #log.close()
-    return (average,loss)
+    return (average)
 
 def median_absolute_loss(prediction_data,target_data):
     '''
@@ -53,9 +53,9 @@ def median_absolute_loss(prediction_data,target_data):
         cost_sum += abs(target_data[index] - prediction)
         loss.append(target_data[index] - prediction)
 
-    print(f"Median absolute loss average cost value: {cost_sum/entry_num}")
+    #print(f"Median absolute loss average cost value: {cost_sum/entry_num}")
     average = cost_sum/entry_num 
-    return (average,loss)
+    return (average)
 
 
 def calculate_square_error_matrix(target_matrix,prediction_matrix):

@@ -46,12 +46,15 @@ def least_squares(input_data):
     #*initializing the score variables
     training_mse_scores = 0
     training_mae_scores = 0
-    validation_mse_scores = 0
-    validation_mae_scores = 0
+    testing_mse_scores = 0
+    testing_mae_scores = 0
 
     #*train_index refers to the indeces of our current train folds,while the test_index to the index of our current test fold
     #*We gonna initialize 2 different sets of numpy arrays here.One being X,representing the input and the other being Y,representing the target values.
+    fold_index = 1
     for train_index,test_index in kf.split(X):
+        
+
         X_train, X_test = X.iloc[train_index], X.iloc[test_index]
         y_train, y_test = y.iloc[train_index], y.iloc[test_index]
 
@@ -82,33 +85,55 @@ def least_squares(input_data):
         training_mse_scores += average_square_error_training
         training_mae_scores += average_absolute_error_training
 
-
-        print(f"CURRENT AVERAGE SQUARE ERROR:{average_square_error_training}")
-        print(f"CURRENT AVERAGE ABSOLUTE ERROR:{average_absolute_error_training}")
+        print(f"--------------------------------------------")
+        print(f"FOLD NUMBER: {fold_index}")
+        print(f"-----------------TRAINING-------------------")
+        print(f"CURRENT AVERAGE SQUARE ERROR DURING TRAINING IN IS: {average_square_error_training}")
+        print(f"CURRENT AVERAGE ABSOLUTE ERROR DURING TRAINING IN IS: {average_absolute_error_training}")
 
 
         Sum_of_squares = np.sum(E_matrix_square)
-        print(Sum_of_squares)
+        #!print(Sum_of_squares)
 
 
-        '''
+        
         X_test_array = X_test.to_numpy()
         Y_test_array = y_test.to_numpy()
 
-        prediction_array_test = np.matmul(X_test_array,B_test.transpose())
+        prediction_array_test = np.matmul(X_test_array,B.transpose())
 
-        E_matrix_square = calculate_square_error_matrix(Y_train_array,prediction_array_test)
-        E_matrix_absolute = calculate_absolute_error_matrix(Y_train_array,prediction_array_test)
+        E_matrix_square = calculate_square_error_matrix(Y_test_array,prediction_array_test)
+        E_matrix_absolute = calculate_absolute_error_matrix(Y_test_array,prediction_array_test)
         average_square_error_testing = np.sum(E_matrix_square)/len(E_matrix_square)
         average_absolute_error_testing = np.sum(E_matrix_absolute)/len(E_matrix_absolute)
-        print(f"CURRENT AVERAGE SQUARE ERROR:{average_square_error_testing}")
-        print(f"CURRENT AVERAGE ABSOLUTE ERROR:{average_absolute_error_testing}")
-        '''
+        
+        print(f"-----------------TESTING--------------------")
+        print(f"CURRENT AVERAGE SQUARE ERROR DURING TESTING IS: {average_square_error_testing}")
+        print(f"CURRENT AVERAGE ABSOLUTE ERROR DURING TESTING IS: {average_absolute_error_testing}")
+        
+        testing_mse_scores += average_square_error_testing
+        testing_mae_scores += average_absolute_error_testing
+
+
+
+        fold_index += 1
     final_mse_training_score = training_mse_scores/num_folds
     final_mae_training_score = training_mae_scores/num_folds
 
-    print(f"---FINAL SCORES---\nMSE: {final_mse_training_score},MAE: {final_mae_training_score}")
+    final_mse_testing_score = testing_mse_scores/num_folds
+    final_mae_testing_score = testing_mae_scores/num_folds
 
+
+    print(f"-----------TRAINING FINAL SCORES------------\nMSE: {final_mse_training_score},MAE: {final_mae_training_score}")
+    print(f"-----------TESTING FINAL SCORES-------------\nMSE: {final_mse_testing_score},MAE: {final_mae_testing_score}")
+
+
+    #*Here,after our k cross validation is finished,we train the model on the complete dataset one last time 
+    x_final_array = X.to_numpy()
+    y_final_array = y.to_numpy()
+    
+    final_B = calculate_slope_coefficient_matrix(x_final_array,y_final_array)
+    print(final_B) 
 
 #!REMOVE ONLY FOR TESTING
 df = pd.read_csv('pain.csv')
