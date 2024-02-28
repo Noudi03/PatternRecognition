@@ -1,6 +1,6 @@
 import pandas as pd
 from preprocessing import get_numerical_features
-from utils import construct_absolute_path
+from csv_utils import construct_absolute_path
 
 
 def check_empty_fields(path):

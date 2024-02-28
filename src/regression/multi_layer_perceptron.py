@@ -4,7 +4,7 @@ from sklearn.metrics import mean_squared_error
 from sklearn.neural_network import MLPRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 
-from utils import load_dataset
+from csv_utils import load_dataset
 
 
 df = load_dataset('housing_final.csv')

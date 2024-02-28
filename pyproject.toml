@@ -18,4 +18,3 @@ package-dir = {"" = "src"}
 
 [project.urls]
 Repository = "https://github.com/noudi03/PatternRecognition"
-Documentation =  "https://readthedocs.org"

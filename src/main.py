@@ -1,7 +1,7 @@
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler
 
 from visualization import plot_histogram, plot_categorical, plot_variable_pairs
-from utils import load_dataset, construct_absolute_path
+from csv_utils import load_dataset, construct_absolute_path
 from preprocessing import get_numerical_features, get_categorical_features, check_empty_fields, ohe_data, append_data, scale_data
 
 
