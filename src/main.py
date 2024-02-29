@@ -3,6 +3,7 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler
 from visualization import plot_histogram, plot_categorical, plot_variable_pairs
 from csv_utils import load_dataset, construct_absolute_path
 from preprocessing import get_numerical_features, get_categorical_features, check_empty_fields, ohe_data, append_data, scale_data
+from regression import mlp_regression
 
 
 def main():
@@ -52,6 +53,10 @@ def main():
     vars_to_plot_4 = ['total_rooms', 'total_bedrooms',
                       'median_income', 'median_house_value']
     plot_variable_pairs(df, vars_to_plot_4)
+
+    # regression
+    df = load_dataset('housing_final.csv')
+    mlp_regression(df)
 
 
 if __name__ == "__main__":
