@@ -9,9 +9,9 @@ from .k_fold_CV import split_dataframe_into_folds
 
 def drop_target_data(df):
     '''
-        INPUTS:
+        Args:
             df(pd.Dataframe):The dataset we gonna use as data for the model
-        RETURNS:
+        Returns:
             input_data(pd.Dataframe): A dataframe containing the data used as inputs for the model.
     '''
     # separating target from input data
@@ -21,9 +21,9 @@ def drop_target_data(df):
 
 def initialize_target_data(df):
     '''
-        INPUTS:
+        Args:
             df(pd.Dataframe):The dataset we gonna use as data for the model
-        RETURNS:
+        Returns:
             target_data(pd.Dataframe): A dataframe containing the data used by the error functions to train the model.
     '''
     value_data = df["median_house_value"].copy()
@@ -40,10 +40,10 @@ def initialize_target_data(df):
 
 def initialize_weight_data(weight_count):
     '''
-        INPUTS:
+        Args:
             weight_count(int): the number of weights the function shall initialize 
 
-        RETURNS:
+        Returns:
             weight_data(list): a list containing the initial weight data for the first iteration of the model.
     '''
     weight_data = []
@@ -54,13 +54,13 @@ def initialize_weight_data(weight_count):
 
 def calculate_sum(input_list, weight_list, bias):
     '''
-        INPUTS:
+        Args:
             input_list(list): a list containing the input data of our model.
 
             weight_list(list): a list containing all the weights of our model.
 
             bias(float): a number used by our machine learning algorithm to tweak how often our perceptron activates and/or stays inactive.
-        RETURNS:
+        Returns:
             sum(float)
     '''
     # *CALCULATING THE SUM
@@ -80,9 +80,9 @@ def calculate_sum(input_list, weight_list, bias):
 
 def activation_function(weighted_sum, threshold):
     '''
-        INPUTS:
+        Args:
             weighted_sum(float): the sum calculated by a percetron's weights and inputs plus the corresponding bias.
-        RETURNS:
+        Returns:
             prediction(int): the prediction of our model.Returns 1 if the weighted sum exceeds 0 and -1 if its lesser/equal to it.  
     '''
     if weighted_sum > threshold:
@@ -93,7 +93,7 @@ def activation_function(weighted_sum, threshold):
 
 def update_weights(input_data, weight_data, prediction, target, learning_rate):
     '''
-        INPUTS:
+        Args:
             input_data(list): a list containing the input data for a certain sample of our data
 
             weight_data(list): a list containing the corresponding weights of a certain sample of our data
@@ -103,7 +103,7 @@ def update_weights(input_data, weight_data, prediction, target, learning_rate):
             target(float): the correct answer we would like our model to give
 
             learning_rate(float): a value that determines how radicaly our model updates its weights in response to making errors.Making this value too big will make it overshoot often so its advised to keep it small(eg. 0.1,0.01 etc.).
-        RETURNS:
+        Returns:
             new_weights(list): a list containing the new updated weights of our model.
     '''
     new_weights = []
@@ -124,7 +124,7 @@ def update_weights(input_data, weight_data, prediction, target, learning_rate):
 
 def update_bias(bias, learning_rate, prediction, target):
     '''
-        INPUTS:
+        Args:
             bias(float):the bias to be updated.
 
             learning_rate(float): a value that determines how radicaly our model updates its weights in response to making errors.Making this value too big will make it overshoot often so its advised to keep it small(eg. 0.01,0.001 etc.).
@@ -132,7 +132,7 @@ def update_bias(bias, learning_rate, prediction, target):
             prediction(float): the corresponding prediction our model made
 
             target(float): the correct answer we would like our model to give
-        RETURNS:
+        Returns:
             new_bias(float): the new updated bias
     '''
     # *FOR EACH WEIGHT WE SOLVE THE FOLLOWING FORMULA
@@ -148,12 +148,14 @@ def update_bias(bias, learning_rate, prediction, target):
 
 def perceptron_algorithm(df, k=10, learning_rate=0.1):
     '''
-        INPUTS:
+        Args:
             df(pd.Dataframe): The dataframe we plan to train and test our model on.
 
             k(int): the number of folds to use for k-cross validation.Default set on 10
 
-            learning_rate(float): a value that determines how radicaly our model updates its weights in response to making errors.Making this value too big will make it overshoot often so its advised to keep it small(eg. 0.1,0.01 etc.).Default set to 0.1.
+            learning_rate(float): a value that determines how radicaly our model updates its weights in response 
+                                    to making errors.Making this value too big will make it overshoot often so its advised to keep it small(eg. 0.1,0.01 etc.).
+                                    Default set to 0.1.
     '''
 
     # *Note: The dataset is already preprocessed and the missing values are filled with the median of the respective column.

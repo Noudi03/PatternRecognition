@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-from preprocessing import get_numerical_features
+from preprocessing import get_numerical_features, get_categorical_features
 
 
 def plot_histogram(df):
@@ -28,7 +28,7 @@ def plot_categorical(df):
     """
 
     # calculating the frequency of each different possible value of the ocean proximity column
-    ocean_proximity = df['ocean_proximity'].value_counts()
+    ocean_proximity = df[get_categorical_features(df)].value_counts()
     # these 5 different values are the only possible ones, so a true histogram isn't the most visually appealing way to represent the data
     ocean_proximity.plot(kind='barh')
 

@@ -3,7 +3,7 @@ import numpy as np
 
 def mean_square_error(prediction_data, target_data):
     '''
-        INPUTS:
+        Args:
             prediction_data(list(int)): a list of 0s and 1s representing our model's predictions
 
             target_data(list(int)): a list of 0s and 1s showing us what the model should predict
@@ -26,7 +26,7 @@ def mean_square_error(prediction_data, target_data):
 
 def mean_absolute_error(prediction_data, target_data):
     '''
-        INPUTS:
+        Args:
             prediction_data(list(int)): a list of 0s and 1s representing our model's predictions
 
             target_data(list(int)): a list of 0s and 1s showing us what the model should predict
@@ -50,11 +50,11 @@ def mean_absolute_error(prediction_data, target_data):
 
 def calculate_square_error_matrix(target_matrix, prediction_matrix):
     '''
-        INPUTS:
+        Args:
             target_matrix(np.array): The target matrix Y consisting of the target data that we aim to achieve with our model
 
             prediction_matrix(np.array): The prediction matrix Y' consisting of the prediction data our model actually calculated
-        RETURNS:
+        Returns:
             E_matrix(np.array): The error matrix showing us the square loss of each individual prediction 
     '''
     # *FOR COST CALCULATIONS TO INITIALIZE THE E MATRIX WE WILL USE THE SQUARE LOSS ALGORITHM,WITH FORMULA BEING:
@@ -65,11 +65,11 @@ def calculate_square_error_matrix(target_matrix, prediction_matrix):
 
 def calculate_absolute_error_matrix(target_matrix, prediction_matrix):
     '''
-        INPUTS:
+        Args:
             target_matrix(np.array): The target matrix Y consisting of the target data that we aim to achieve with our model
 
             prediction_matrix(np.array): The prediction matrix Y' consisting of the prediction data our model actually calculated
-        RETURNS:
+        Returns:
             E_matrix(np.array): The error matrix showing us the absolute loss of each individual prediction 
     '''
     # *FOR COST CALCULATIONS TO INITIALIZE THE E MATRIX WE WILL USE THE SQUARE LOSS ALGORITHM,WITH FORMULA BEING:

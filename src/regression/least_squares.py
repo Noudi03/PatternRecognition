@@ -8,11 +8,11 @@ from .loss_functions import calculate_absolute_error_matrix, calculate_square_er
 
 def calculate_slope_coefficient_matrix(x_matrix, y_matrix):
     '''
-        INPUTS:
+        Args:
             x_matrix(np.array): The parameter matrix X,with size nXk where n is the number of samples in our dataset and k is the number of parameters we give to our model
 
             y_matrix(np.array): The target matrix Y,with size nX1 where n is the number of samples in our dataset
-        RETURNS:
+        Returns:
             B_matrix(np.array): The slope coefficient matrix B,calculated using the formula B = (inverse((transpose(X)*X))) * transpose(X)*Y
     '''
     # * THE FORMULA TO CALCULATE THE B MATRIX IS:
@@ -28,10 +28,12 @@ def calculate_slope_coefficient_matrix(x_matrix, y_matrix):
 
 def least_squares_algorithm(input_data, num_folds=10):
     '''
-        INPUTS:
+        Args:
             input_data(pd.Dataframe): The dataframe we plan to feed our model scaled appropriately and with categorical values encoded with one hot encoding beforehand.
 
             num_folds(int): The number of folds we shall use for K-cross validation.With K being the number of folds.Default is set to 10 for 10-cross validation.
+        Returns:
+            None
     '''
     kf = KFold(n_splits=num_folds, shuffle=True, random_state=42)
 
@@ -81,17 +83,6 @@ def least_squares_algorithm(input_data, num_folds=10):
         training_mse_scores += average_square_error_training
         training_mae_scores += average_absolute_error_training
 
-        print(f"--------------------------------------------")
-        print(f"FOLD NUMBER: {fold_index}")
-        print(f"-----------------TRAINING-------------------")
-        print(
-            f"CURRENT AVERAGE SQUARE ERROR DURING TRAINING IN IS: {average_square_error_training}")
-        print(
-            f"CURRENT AVERAGE ABSOLUTE ERROR DURING TRAINING IN IS: {average_absolute_error_training}")
-
-        Sum_of_squares = np.sum(E_matrix_square)
-        #!print(Sum_of_squares)
-
         X_test_array = X_test.to_numpy()
         Y_test_array = y_test.to_numpy()
 
@@ -105,12 +96,6 @@ def least_squares_algorithm(input_data, num_folds=10):
             E_matrix_square)/len(E_matrix_square)
         average_absolute_error_testing = np.sum(
             E_matrix_absolute)/len(E_matrix_absolute)
-
-        print(f"-----------------TESTING--------------------")
-        print(
-            f"CURRENT AVERAGE SQUARE ERROR DURING TESTING IS: {average_square_error_testing}")
-        print(
-            f"CURRENT AVERAGE ABSOLUTE ERROR DURING TESTING IS: {average_absolute_error_testing}")
 
         testing_mse_scores += average_square_error_testing
         testing_mae_scores += average_absolute_error_testing

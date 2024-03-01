@@ -4,11 +4,11 @@ import numpy as np
 
 def split_dataframe_into_folds(df, k=10):
     '''
-        INPUTS:
+        Args:
             df(pd.Dataframe): the dataframe to split.
 
             k(int): number of folds to split the dataframe into.
-        RETURNS:
+        Returns:
             fold_list(list[0...k](pd.Dataframe)): the separated folds to be used for cross validation.
     '''
     # finding how many entries each fold out of the k to be created shall contain.
