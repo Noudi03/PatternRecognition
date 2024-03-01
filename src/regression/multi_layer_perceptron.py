@@ -20,7 +20,6 @@ def mlp_regression(df, num_folds=10):
     # splitting the data into features and target
     X = df.drop('median_house_value', axis=1)
     y = df['median_house_value']
-    print(df.columns)
 
     # defining the MLP regressor
     mlp = MLPRegressor(hidden_layer_sizes=(
