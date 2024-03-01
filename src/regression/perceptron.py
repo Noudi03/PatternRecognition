@@ -146,7 +146,7 @@ def update_bias(bias, learning_rate, prediction, target):
     return new_bias
 
 
-def perceptron(df, k=10, learning_rate=0.1):
+def perceptron_algorithm(df, k=10, learning_rate=0.1):
     '''
         INPUTS:
             df(pd.Dataframe): The dataframe we plan to train and test our model on.

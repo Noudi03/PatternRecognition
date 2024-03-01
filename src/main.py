@@ -3,7 +3,7 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler
 from visualization import plot_histogram, plot_categorical, plot_variable_pairs
 from csv_utils import load_dataset, construct_absolute_path
 from preprocessing import get_numerical_features, get_categorical_features, check_empty_fields, ohe_data, append_data, scale_data
-from regression import mlp_regression
+from regression import mlp_regression,perceptron_algorithm,least_squares_algorithm
 
 
 def main():
@@ -56,6 +56,8 @@ def main():
 
     # regression
     df = load_dataset('housing_final.csv')
+    perceptron_algorithm(df,k = 10,learning_rate = 0.1)
+    least_squares_algorithm(df,num_folds=10)
     mlp_regression(df)
 
 

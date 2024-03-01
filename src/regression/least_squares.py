@@ -26,7 +26,7 @@ def calculate_slope_coefficient_matrix(x_matrix, y_matrix):
     return (B_matrix)
 
 
-def least_squares(input_data, num_folds=10):
+def least_squares_algorithm(input_data, num_folds=10):
     '''
         INPUTS:
             input_data(pd.Dataframe): The dataframe we plan to feed our model scaled appropriately and with categorical values encoded with one hot encoding beforehand.
