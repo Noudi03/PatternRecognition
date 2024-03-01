@@ -1,6 +1,6 @@
 import os
 
-import pandas
+import pandas as pd
 
 
 def construct_absolute_path(file_name):
@@ -24,4 +24,4 @@ def load_dataset(file_name):
         pandas.DataFrame: The loaded DataFrame
     """
     file_path = construct_absolute_path(file_name)
-    return pandas.read_csv(file_path)
+    return pd.read_csv(file_path)
