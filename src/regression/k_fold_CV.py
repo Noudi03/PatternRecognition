@@ -20,10 +20,4 @@ def split_dataframe_into_folds(df,k = 10):
     fold_list = [shuffled_df[i:i+entry_num] for i in range(0,len(shuffled_df),entry_num)]
     
     return fold_list
-    #! REMOVE THIS SHIT BEFORE UPLOADING ONLY USE FOR TESTING THIS FUNCTION
-    #for i in range(0,10):
-        #print(fold_list[i])
 
-#! REMOVE THIS SHIT BEFORE UPLOADING ONLY USE FOR TESTING THIS FUNCTION
-#df = pd.read_csv('data\housing_filled.csv')
-#split_dataframe_into_folds(df)   

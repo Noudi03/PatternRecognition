@@ -14,7 +14,6 @@ def calculate_slope_coefficient_matrix(x_matrix,y_matrix):
         RETURNS:
             B_matrix(np.array): The slope coefficient matrix B,calculated using the formula B = (inverse((transpose(X)*X))) * transpose(X)*Y
     '''
-
     #* THE FORMULA TO CALCULATE THE B MATRIX IS:
     #* B = (inverse((transpose(X)*X))) * transpose(X)*Y
     x_transpose = x_matrix.transpose()
@@ -26,21 +25,19 @@ def calculate_slope_coefficient_matrix(x_matrix,y_matrix):
     return(B_matrix)
 
 
-def least_squares(input_data):
+def least_squares(input_data,num_folds = 10):
     '''
         INPUTS:
-            input_data(): 
-        RESULTS:
+            input_data(pd.Dataframe): The dataframe we plan to feed our model scaled appropriately and with categorical values encoded with one hot encoding beforehand.
 
+            num_folds(int): The number of folds we shall use for K-cross validation.With K being the number of folds.Default is set to 10 for 10-cross validation.
     '''
-    #!REMOVE ONLY FOR TESTING
-    num_folds = 10
     kf = KFold(n_splits=num_folds, shuffle=True, random_state=42)
 
 
     #splitting the data into features and target
-    X = df.drop('median_house_value', axis=1)
-    y = df['median_house_value']
+    X = input_data.drop('median_house_value', axis=1)
+    y = input_data['median_house_value']
 
 
     #*initializing the score variables
@@ -133,7 +130,9 @@ def least_squares(input_data):
     y_final_array = y.to_numpy()
     
     final_B = calculate_slope_coefficient_matrix(x_final_array,y_final_array)
-    print(final_B) 
+    print(f"--------------------------------------------")
+    print(f"FINAL SLOPE COEFFICIENTS CALCULATED AT: {final_B}") 
+    print(f"--------------------------------------------")
 
 #!REMOVE ONLY FOR TESTING
 df = pd.read_csv('pain.csv')
