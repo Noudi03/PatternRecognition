@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.model_selection import KFold
 from numpy.linalg import inv
 
-from loss_functions import calculate_absolute_error_matrix, calculate_square_error_matrix
+from .loss_functions import calculate_absolute_error_matrix, calculate_square_error_matrix
 
 
 def calculate_slope_coefficient_matrix(x_matrix, y_matrix):
@@ -135,8 +135,3 @@ def least_squares_algorithm(input_data, num_folds=10):
     print(f"--------------------------------------------")
     print(f"FINAL SLOPE COEFFICIENTS CALCULATED AT: {final_B}")
     print(f"--------------------------------------------")
-
-
-#!REMOVE ONLY FOR TESTING
-df = pd.read_csv('pain.csv')
-least_squares(df)

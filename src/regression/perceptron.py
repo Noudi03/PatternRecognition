@@ -3,8 +3,8 @@ import random
 import pandas as pd
 import numpy as np
 
-from loss_functions import mean_square_error, mean_absolute_error
-from k_fold_CV import split_dataframe_into_folds
+from .loss_functions import mean_square_error, mean_absolute_error
+from .k_fold_CV import split_dataframe_into_folds
 
 
 def drop_target_data(df):
@@ -276,7 +276,3 @@ def perceptron_algorithm(df, k=10, learning_rate=0.1):
         if mse < 0.8:
             passed_training = True
             print(f"--------------------------------------------\n")
-
-
-df = pd.read_csv("pain.csv")
-perceptron(df)
