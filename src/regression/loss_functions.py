@@ -1,13 +1,12 @@
 import numpy as np
 
 
-def median_square_loss(prediction_data,target_data):
+def mean_square_error(prediction_data,target_data):
     '''
         INPUTS:
             prediction_data(list(int)): a list of 0s and 1s representing our model's predictions
 
             target_data(list(int)): a list of 0s and 1s showing us what the model should predict
-
         RESULTS:
             average_cost(float): the average cost of our model 
 
@@ -24,7 +23,7 @@ def median_square_loss(prediction_data,target_data):
     average = cost_sum/entry_num 
     return (average)
 
-def median_absolute_loss(prediction_data,target_data):
+def mean_absolute_error(prediction_data,target_data):
     '''
         INPUTS:
             prediction_data(list(int)): a list of 0s and 1s representing our model's predictions

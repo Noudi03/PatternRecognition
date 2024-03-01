@@ -11,7 +11,6 @@ def split_dataframe_into_folds(df,k = 10):
         RETURNS:
             fold_list(list[0...k](pd.Dataframe)): the separated folds to be used for cross validation.
     '''
-    
     #finding how many entries each fold out of the k to be created shall contain.
     entry_num = len(df)//k
 

@@ -3,7 +3,7 @@ import random
 import pandas as pd
 import numpy as np
 
-from loss_functions import median_square_loss,median_absolute_loss
+from loss_functions import mean_square_error,mean_absolute_error
 
 
 
@@ -221,7 +221,7 @@ def perceptron(df,k=10,learning_rate = 0.1):
             prediction.append(activation_function(value_sum))
 
         #calculating loss
-        average_cost = median_square_loss(prediction,training_target_set)
+        average_cost = mean_square_error(prediction,training_target_set)
 
 
         
@@ -236,8 +236,8 @@ def perceptron(df,k=10,learning_rate = 0.1):
             value_sum = calculate_sum(row,weight_data,bias)
             prediction_tests.append(activation_function(value_sum))
         #calculating loss
-        average_cost_test = median_square_loss(prediction_tests,testing_target_set)
-        average_absolute_cost = median_absolute_loss(prediction_tests,testing_target_set)
+        average_cost_test = mean_square_error(prediction_tests,testing_target_set)
+        average_absolute_cost = mean_absolute_error(prediction_tests,testing_target_set)
         square_loss_sum += average_cost_test
         absolute_loss_sum += average_absolute_cost
     square_loss_average = square_loss_sum/k
@@ -270,8 +270,8 @@ def perceptron(df,k=10,learning_rate = 0.1):
             bias = update_bias(bias,learning_rate,prediction[i],target_data[i])
 
         #*CALCULATING MEDIAN SQUARE ERROR(MSE) AND MEDIAN ABSOLUTE ERROR(MAE)
-        mse = median_square_loss(prediction,target_data)
-        mae = median_absolute_loss(prediction,target_data)
+        mse = mean_square_error(prediction,target_data)
+        mae = mean_absolute_error(prediction,target_data)
         print(f"FINAL MSE: {mse},FINAL MAE: {mae}")
         if mse < 0.8:
             passed_training = True
