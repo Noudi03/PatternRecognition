@@ -4,9 +4,6 @@ import pandas as pd
 import numpy as np
 
 from loss_functions import mean_square_error,mean_absolute_error
-
-
-
 from k_fold_CV import split_dataframe_into_folds
 
 
@@ -81,14 +78,14 @@ def calculate_sum(input_list,weight_list,bias):
     sum += bias
     return sum
 
-def activation_function(weighted_sum):       
+def activation_function(weighted_sum,threshold):       
     '''
         INPUTS:
             weighted_sum(float): the sum calculated by a percetron's weights and inputs plus the corresponding bias.
         RETURNS:
             prediction(int): the prediction of our model.Returns 1 if the weighted sum exceeds 0 and -1 if its lesser/equal to it.  
     ''' 
-    if weighted_sum > 0:
+    if weighted_sum > threshold:
         return 1
     else:
         return -1
@@ -160,7 +157,12 @@ def perceptron(df,k=10,learning_rate = 0.1):
 
     #*Note: The dataset is already preprocessed and the missing values are filled with the median of the respective column.    
 
+    value_data = df["median_house_value"].copy()    
+    #setting threshold as the median of all values
+    threshold = value_data.median()
     
+
+
     fold_list = split_dataframe_into_folds(df,k)
 
 
@@ -172,6 +174,8 @@ def perceptron(df,k=10,learning_rate = 0.1):
     input_data_lists = []
     for fold in fold_list:
         input_data_lists.append(drop_target_data(fold))
+
+
 
     square_loss_sum = 0
     absolute_loss_sum = 0
@@ -218,7 +222,7 @@ def perceptron(df,k=10,learning_rate = 0.1):
         for i,row in enumerate(training_set):
             #iterating through the elements of each row 
             value_sum = calculate_sum(row,weight_data,bias)
-            prediction.append(activation_function(value_sum))
+            prediction.append(activation_function(value_sum,threshold))
 
         #calculating loss
         average_cost = mean_square_error(prediction,training_target_set)
@@ -234,7 +238,7 @@ def perceptron(df,k=10,learning_rate = 0.1):
 
         for i,row in enumerate(testing_set):
             value_sum = calculate_sum(row,weight_data,bias)
-            prediction_tests.append(activation_function(value_sum))
+            prediction_tests.append(activation_function(value_sum,threshold))
         #calculating loss
         average_cost_test = mean_square_error(prediction_tests,testing_target_set)
         average_absolute_cost = mean_absolute_error(prediction_tests,testing_target_set)
@@ -262,7 +266,7 @@ def perceptron(df,k=10,learning_rate = 0.1):
         #*MAKING PREDICTIONS
         for row in input_data:
             value_sum = calculate_sum(row,weight_data,bias)
-            prediction.append(activation_function(value_sum))
+            prediction.append(activation_function(value_sum,threshold))
 
         #*UPDATING WEIGHTS + BIAS
         for i,row in enumerate(input_data):
@@ -276,3 +280,6 @@ def perceptron(df,k=10,learning_rate = 0.1):
         if mse < 0.8:
             passed_training = True
             print(f"--------------------------------------------\n")
+
+df = pd.read_csv("pain.csv")
+perceptron(df)
