@@ -123,7 +123,6 @@ def update_weights(input_data,weight_data,prediction,target,learning_rate):
     #* X: the i-th input that corresponds to the weight that is being updated. 
     for i,weight in enumerate(weight_data):
         new_weights.append(weight + learning_rate*(target-prediction)*input_data[i])
-    #print(f"NEW WEIGHTS: {new_weights}")
     return new_weights
 
 def update_bias(bias,learning_rate,prediction,target):
@@ -165,7 +164,6 @@ def perceptron(df,k=10,learning_rate = 0.1):
     fold_list = split_dataframe_into_folds(df,k)
 
 
-    #TODO DONT FORGET TO UPDATE TARGET DATA LIST INITIALIZATION CODE SO THAT THE AVERAGE IS CALCULATED ON THE WHOLE DATASET NOT ON THE INDIVIDUAL ONE
     target_data_lists = []
     for i,fold in enumerate(fold_list):
         target_data_lists.append(initialize_target_data(fold))
@@ -240,7 +238,6 @@ def perceptron(df,k=10,learning_rate = 0.1):
         #calculating loss
         average_cost_test = median_square_loss(prediction_tests,testing_target_set)
         average_absolute_cost = median_absolute_loss(prediction_tests,testing_target_set)
-        #!print(f"MEDIAN SQUARE LOSS: {average_cost_test}")
         square_loss_sum += average_cost_test
         absolute_loss_sum += average_absolute_cost
     square_loss_average = square_loss_sum/k
