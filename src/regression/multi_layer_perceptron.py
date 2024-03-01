@@ -6,11 +6,15 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error
 
 
 def mlp_regression(df, num_folds=10):
-    """_summary_
+    """Performs Multilayer Perceptron (MLP) regression on the given dataset using k-fold cross-validation.
 
     Args:
         df (pd.Dataframe): the dataset to be used in the training and validation process of the model.
         num_folds (int, optional): number of folds for k-fold validation. Defaults to 10.
+    Returns:
+        None
+    Prints:
+        The average training and validation MSE and MAE across all folds.
     """
 
     # splitting the data into features and target
