@@ -27,15 +27,20 @@ Create a Virtual Environment
 
 Activate the Virtual Environment
 ~~~bash
-  venv\Scripts\activate
+  .venv\Scripts\activate
+~~~
+
+Note: if you cannot run the activation script, open an elevated powershell and execute the following command
+~~~ps1
+  set-executionpolicy remotesigned
 ~~~
 
 
 ## Install dependencies  
 
 ~~~bash  
-pip install build
-pip install .
+  pip install build
+  pip install .
 ~~~
 
 ## Run the main script
