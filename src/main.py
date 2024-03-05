@@ -67,11 +67,11 @@ def main():
 
     # regression
     df = load_dataset('housing_final.csv')
-    input("\nRun perceptron: ")
+    input("\nRun perceptron:\n")
     perceptron_algorithm(df, k=10, learning_rate=0.1)
-    input("\nRun least squares: ")
+    input("\nRun least squares:\n ")
     least_squares_algorithm(df, num_folds=10)
-    input("\nRun mlp regression: ")
+    input("\nRun mlp regression:\n ")
     mlp_regression(df)
 
 
