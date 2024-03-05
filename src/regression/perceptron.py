@@ -68,8 +68,8 @@ def calculate_sum(input_list, weight_list, bias):
     # * X1*W1 + X2*W2 + X3*W3 + ... Xi*Wi + B
     # *WITH:
     # *X: input variable,comes from the training data list and there are as many of these as there are columns
-    # *W: weight variable,comes from the weight data list and is initialisy initialized randomly with numbers between 0 and 1
-    # *B: bias,is also randomly initialised and tweaked over time as the model trains
+    # *W: weight variable,comes from the weight data list and is initially initialized randomly with numbers between 0 and 1
+    # *B: bias,is also randomly initialized and tweaked over time as the model trains
 
     sum = 0
     for i, input in enumerate(input_list):
@@ -275,6 +275,6 @@ def perceptron_algorithm(df, k=10, learning_rate=0.1):
         mse = mean_square_error(prediction, target_data)
         mae = mean_absolute_error(prediction, target_data)
         print(f"FINAL MSE: {mse},FINAL MAE: {mae}")
-        if mse < 0.8:
+        if mse < 0.5:
             passed_training = True
             print(f"--------------------------------------------\n")

@@ -1,7 +1,8 @@
 import numpy as np
-from sklearn.model_selection import KFold
-from sklearn.metrics import mean_squared_error
+import pandas as pd
+from sklearn.model_selection import StratifiedKFold
 from sklearn.neural_network import MLPRegressor
+from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 
 
@@ -21,19 +22,21 @@ def mlp_regression(df, num_folds=10):
     X = df.drop('median_house_value', axis=1)
     y = df['median_house_value']
 
+    y_binned = pd.qcut(y, q=num_folds, labels=False, duplicates='drop')
+
     # defining the MLP regressor
     mlp = MLPRegressor(hidden_layer_sizes=(
         100,), max_iter=1000, random_state=42)
 
     # initializing k-fold cross-validation
-    kf = KFold(n_splits=num_folds, shuffle=True, random_state=42)
+    skf = StratifiedKFold(n_splits=num_folds, shuffle=True, random_state=42)
 
     training_mse_scores = []
     training_mae_scores = []
     validation_mse_scores = []
     validation_mae_scores = []
 
-    for train_index, test_index in kf.split(X):
+    for train_index, test_index in skf.split(X, y_binned):
         X_train, X_test = X.iloc[train_index], X.iloc[test_index]
         y_train, y_test = y.iloc[train_index], y.iloc[test_index]
 

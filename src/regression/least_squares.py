@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from sklearn.model_selection import KFold
+from sklearn.model_selection import StratifiedKFold
 from numpy.linalg import inv
 
 from .loss_functions import calculate_absolute_error_matrix, calculate_square_error_matrix
@@ -35,7 +35,8 @@ def least_squares_algorithm(input_data, num_folds=10):
         Returns:
             None
     '''
-    kf = KFold(n_splits=num_folds, shuffle=True, random_state=42)
+    y_binned = pd.qcut(y, q=num_folds, labels=False, duplicates='drop')
+    skf = StratifiedKFold(n_splits=num_folds, shuffle=True, random_state=42)
 
     # splitting the data into features and target
     X = input_data.drop('median_house_value', axis=1)
@@ -50,7 +51,7 @@ def least_squares_algorithm(input_data, num_folds=10):
     # *train_index refers to the indeces of our current train folds,while the test_index to the index of our current test fold
     # *We gonna initialize 2 different sets of numpy arrays here.One being X,representing the input and the other being Y,representing the target values.
     fold_index = 1
-    for train_index, test_index in kf.split(X):
+    for train_index, test_index in skf.split(X, y_binned):
 
         X_train, X_test = X.iloc[train_index], X.iloc[test_index]
         y_train, y_test = y.iloc[train_index], y.iloc[test_index]
