@@ -20,5 +20,5 @@ def get_categorical_features(df):
         list: The list of categorical features
     """
     categorical_features = df.select_dtypes(
-        include=['category']).columns.to_list()
+        include=['object']).columns.to_list()
     return categorical_features

@@ -34,13 +34,15 @@ def least_squares_algorithm(input_data, num_folds=10):
             num_folds(int): The number of folds we shall use for K-cross validation.With K being the number of folds.Default is set to 10 for 10-cross validation.
         Returns:
             None
+
     '''
-    y_binned = pd.qcut(y, q=num_folds, labels=False, duplicates='drop')
-    skf = StratifiedKFold(n_splits=num_folds, shuffle=True, random_state=42)
 
     # splitting the data into features and target
     X = input_data.drop('median_house_value', axis=1)
     y = input_data['median_house_value']
+
+    y_binned = pd.qcut(y, q=num_folds, labels=False, duplicates='drop')
+    skf = StratifiedKFold(n_splits=num_folds, shuffle=True, random_state=42)
 
     # *initializing the score variables
     training_mse_scores = 0

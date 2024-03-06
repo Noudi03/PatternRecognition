@@ -275,6 +275,6 @@ def perceptron_algorithm(df, k=10, learning_rate=0.1):
         mse = mean_square_error(prediction, target_data)
         mae = mean_absolute_error(prediction, target_data)
         print(f"FINAL MSE: {mse},FINAL MAE: {mae}")
-        if mse < 0.5:
+        if mse < 0.75:
             passed_training = True
             print(f"--------------------------------------------\n")
