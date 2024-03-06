@@ -48,7 +48,7 @@ def least_squares_algorithm(input_data, num_folds=10):
     testing_mse_scores = 0
     testing_mae_scores = 0
 
-    # *train_index refers to the indeces of our current train folds,while the test_index to the index of our current test fold
+    # *train_index refers to the indices of our current train folds,while the test_index to the index of our current test fold
     # *We gonna initialize 2 different sets of numpy arrays here.One being X,representing the input and the other being Y,representing the target values.
     fold_index = 1
     for train_index, test_index in skf.split(X, y_binned):
@@ -63,7 +63,7 @@ def least_squares_algorithm(input_data, num_folds=10):
         # *THERE ARE 4 MATRICES OF IMPORTANCE:
         # * I)Y representing our target/dependent values,with size n*1
         # * II)X representing our inputs/independent values with size n*k
-        # * III)B representing our sloap coefficients with size k*1
+        # * III)B representing slope coefficients with size k*1
         # * IV)E representing our errors with size n*1
         B = calculate_slope_coefficient_matrix(X_train_array, Y_train_array)
         #!print(B.shape)

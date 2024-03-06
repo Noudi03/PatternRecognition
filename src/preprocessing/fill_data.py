@@ -1,6 +1,6 @@
 import pandas as pd
 from preprocessing import get_numerical_features
-from csv_utils import construct_absolute_path
+from csv_utils import construct_absolute_path, load_dataset
 
 
 def check_empty_fields(path):
@@ -12,7 +12,7 @@ def check_empty_fields(path):
         None
     """
 
-    df = pd.read_csv(path)
+    df = load_dataset(path)
     numerical_df = df[get_numerical_features(df)]
 
     # checking for any missing values in the numerical dataset

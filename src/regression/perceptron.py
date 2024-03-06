@@ -81,7 +81,7 @@ def calculate_sum(input_list, weight_list, bias):
 def activation_function(weighted_sum, threshold):
     '''
         Args:
-            weighted_sum(float): the sum calculated by a percetron's weights and inputs plus the corresponding bias.
+            weighted_sum(float): the sum calculated by a perceptron's weights and inputs plus the corresponding bias.
         Returns:
             prediction(int): the prediction of our model.Returns 1 if the weighted sum exceeds 0 and -1 if its lesser/equal to it.  
     '''
@@ -102,7 +102,7 @@ def update_weights(input_data, weight_data, prediction, target, learning_rate):
 
             target(float): the correct answer we would like our model to give
 
-            learning_rate(float): a value that determines how radicaly our model updates its weights in response to making errors.Making this value too big will make it overshoot often so its advised to keep it small(eg. 0.1,0.01 etc.).
+            learning_rate(float): a value that determines how radically our model updates its weights in response to making errors.Making this value too big will make it overshoot often so its advised to keep it small(eg. 0.1,0.01 etc.).
         Returns:
             new_weights(list): a list containing the new updated weights of our model.
     '''
@@ -127,7 +127,7 @@ def update_bias(bias, learning_rate, prediction, target):
         Args:
             bias(float):the bias to be updated.
 
-            learning_rate(float): a value that determines how radicaly our model updates its weights in response to making errors.Making this value too big will make it overshoot often so its advised to keep it small(eg. 0.01,0.001 etc.).
+            learning_rate(float): a value that determines how radically our model updates its weights in response to making errors.Making this value too big will make it overshoot often so its advised to keep it small(eg. 0.01,0.001 etc.).
 
             prediction(float): the corresponding prediction our model made
 
@@ -153,7 +153,7 @@ def perceptron_algorithm(df, k=10, learning_rate=0.1):
 
             k(int): the number of folds to use for k-cross validation.Default set on 10
 
-            learning_rate(float): a value that determines how radicaly our model updates its weights in response 
+            learning_rate(float): a value that determines how radically our model updates its weights in response 
                                     to making errors.Making this value too big will make it overshoot often so its advised to keep it small(eg. 0.1,0.01 etc.).
                                     Default set to 0.1.
     '''
@@ -180,7 +180,7 @@ def perceptron_algorithm(df, k=10, learning_rate=0.1):
 
         current_fold = []
 
-        # initilizing the training sets
+        # initializing the training sets
         training_set = []
         training_target_set = []
         # initializing the testing sets
