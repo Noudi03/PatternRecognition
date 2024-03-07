@@ -13,7 +13,7 @@ def mlp_regression(df, num_folds=10):
         df (pd.Dataframe): the dataset to be used in the training and validation process of the model.
         num_folds (int, optional): number of folds for k-fold validation. Defaults to 10.
     Returns:
-        None
+        mlp (MLPRegressor) The trained model
     Prints:
         The average training and validation MSE and MAE across all folds.
     """
@@ -65,3 +65,19 @@ def mlp_regression(df, num_folds=10):
     print(f"Average Training MAE: {np.mean(training_mae_scores)}")
     print(f"Average Validation MSE: {np.mean(validation_mse_scores)}")
     print(f"Average Validation MAE: {np.mean(validation_mae_scores)}")
+
+    # training the model on the entire dataset
+    mlp.fit(X, y)
+
+    # making predictions on the entire dataset
+    predictions = mlp.predict(X)
+
+    # calculating MSE and MAE for the entire dataset
+    mse = mean_squared_error(y, predictions)
+    mae = mean_absolute_error(y, predictions)
+
+    # printing the MSE and MAE after training on the entire dataset
+    print(f"MSE after training on the entire dataset: {mse}")
+    print(f"MAE after training on the entire dataset: {mae}")
+
+    return mlp
