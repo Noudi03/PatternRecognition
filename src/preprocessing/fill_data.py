@@ -1,18 +1,18 @@
 import pandas as pd
 from preprocessing import get_numerical_features
-from csv_utils import construct_absolute_path, load_dataset
+from csv_utils import construct_absolute_path
 
 
-def check_empty_fields(path):
+def check_empty_fields(file_name):
     """Checking for any empty numerical fields in a CSV file
 
     Args:
-        path (str): Path to the CSV file
+        file_name (str): name of the CSV file
     Returns:
         None
     """
 
-    df = pd.read_csv(path)
+    df = pd.read_csv(file_name)
     numerical_df = df[get_numerical_features(df)]
 
     # checking for any missing values in the numerical dataset
