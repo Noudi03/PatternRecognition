@@ -42,7 +42,7 @@ def split_dataframe_into_folds(df, k=10):
         # adding the prepared fold to the list of folds
         fold_list.append(current_fold)
 
-    # removing the bin column from each fold and the original dataframe
+    # removing the bin column from each fold
     for fold in fold_list:
         fold.drop(columns=['bin'], inplace=True)
 
