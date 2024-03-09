@@ -9,7 +9,7 @@ from regression import mlp_regression, perceptron_algorithm, least_squares_algor
 def main():
     # loading the housing dataset
     df = load_dataset('housing.csv')
-    print(" A message will be shown before running each section of code, press enter to continue \n") 
+    print("\n A message will be shown before running each section of code, press enter to continue: \n") 
     # calling the functions to get the numerical and categorical features
     input("\nShow numerical and categorical features: ")
     numerical_features = get_numerical_features(df)
