@@ -42,7 +42,7 @@ Note: if you cannot run the activation script, open an elevated powershell and e
 ~~~
 
 ## Install dependencies  
-
+We need this package in order to build the project with setuptools
 ~~~bash  
   pip install build
 ~~~
