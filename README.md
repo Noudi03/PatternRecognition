@@ -25,7 +25,7 @@ Create a Virtual Environment named venv
   python -m venv venv
 ~~~
 
-# Activation
+## Activation
 Activate the virtual environment
 ## Windows
 ~~~bash
