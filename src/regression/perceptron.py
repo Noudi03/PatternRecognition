@@ -1,6 +1,4 @@
-import math
 import random
-import pandas as pd
 import numpy as np
 
 from .loss_functions import mean_square_error, mean_absolute_error

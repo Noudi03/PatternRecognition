@@ -20,12 +20,14 @@ Go to the project directory
   pip install virtualenv
 ~~~
 
-Create a Virtual Environment
+Create a Virtual Environment named venv
 ~~~bash
   python -m venv venv
 ~~~
 
-Activate the Virtual Environment
+## Activation
+Activate the virtual environment
+## Windows
 ~~~bash
   .venv\Scripts\activate
 ~~~
@@ -34,12 +36,19 @@ Note: if you cannot run the activation script, open an elevated powershell and e
 ~~~ps1
   set-executionpolicy remotesigned
 ~~~
-
+## Linux
+~~~bash
+  source venv/bin/activate
+~~~
 
 ## Install dependencies  
-
+We need this package in order to build the project with setuptools
 ~~~bash  
   pip install build
+~~~
+## Build Package
+
+~~~bash  
   pip install .
 ~~~
 
@@ -51,4 +60,4 @@ Note: if you cannot run the activation script, open an elevated powershell and e
 
 ## License  
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](LICENSE)

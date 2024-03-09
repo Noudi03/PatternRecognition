@@ -1,7 +1,7 @@
 import numpy as np
+from numpy.linalg import inv
 import pandas as pd
 from sklearn.model_selection import StratifiedKFold
-from numpy.linalg import inv
 
 from .loss_functions import calculate_absolute_error_matrix, calculate_square_error_matrix
 
