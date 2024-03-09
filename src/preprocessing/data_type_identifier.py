@@ -7,7 +7,7 @@ def get_numerical_features(df):
         list: The list of numerical features
     """
     numerical_features = df.select_dtypes(
-        include=['float64', 'int64']).columns.to_list()
+        include=['number']).columns.to_list()
     return numerical_features
 
 

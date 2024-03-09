@@ -1,7 +1,8 @@
 import numpy as np
-from sklearn.model_selection import KFold
-from sklearn.metrics import mean_squared_error
+import pandas as pd
+from sklearn.model_selection import StratifiedKFold
 from sklearn.neural_network import MLPRegressor
+from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 
 
@@ -12,7 +13,7 @@ def mlp_regression(df, num_folds=10):
         df (pd.Dataframe): the dataset to be used in the training and validation process of the model.
         num_folds (int, optional): number of folds for k-fold validation. Defaults to 10.
     Returns:
-        None
+        mlp (MLPRegressor) The trained model
     Prints:
         The average training and validation MSE and MAE across all folds.
     """
@@ -20,21 +21,22 @@ def mlp_regression(df, num_folds=10):
     # splitting the data into features and target
     X = df.drop('median_house_value', axis=1)
     y = df['median_house_value']
-    print(df.columns)
+
+    y_binned = pd.qcut(y, q=num_folds, labels=False, duplicates='drop')
 
     # defining the MLP regressor
     mlp = MLPRegressor(hidden_layer_sizes=(
         100,), max_iter=1000, random_state=42)
 
     # initializing k-fold cross-validation
-    kf = KFold(n_splits=num_folds, shuffle=True, random_state=42)
+    skf = StratifiedKFold(n_splits=num_folds, shuffle=True, random_state=42)
 
     training_mse_scores = []
     training_mae_scores = []
     validation_mse_scores = []
     validation_mae_scores = []
 
-    for train_index, test_index in kf.split(X):
+    for train_index, test_index in skf.split(X, y_binned):
         X_train, X_test = X.iloc[train_index], X.iloc[test_index]
         y_train, y_test = y.iloc[train_index], y.iloc[test_index]
 
@@ -63,3 +65,19 @@ def mlp_regression(df, num_folds=10):
     print(f"Average Training MAE: {np.mean(training_mae_scores)}")
     print(f"Average Validation MSE: {np.mean(validation_mse_scores)}")
     print(f"Average Validation MAE: {np.mean(validation_mae_scores)}")
+
+    # training the model on the entire dataset
+    mlp.fit(X, y)
+
+    # making predictions on the entire dataset
+    predictions = mlp.predict(X)
+
+    # calculating MSE and MAE for the entire dataset
+    mse = mean_squared_error(y, predictions)
+    mae = mean_absolute_error(y, predictions)
+
+    # printing the MSE and MAE after training on the entire dataset
+    print(f"MSE after training on the entire dataset: {mse}")
+    print(f"MAE after training on the entire dataset: {mae}")
+
+    return mlp

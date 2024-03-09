@@ -1,11 +1,15 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools_scm"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "PatternRecognition"
-description = "Pattern Recognition assignment"
-version="0.4.1"
 authors = [
     { name = "Eleni Katsimicha", email = "helenkatsimiha@gmail.com"}
 ]
+description = "Pattern Recognition assignment"
 classifiers = ["Programming Language :: Python :: 3.11.0"]
+requires-python = ">=3.8"
 dependencies = [
     "pandas",
     "scikit-learn",
@@ -13,8 +17,11 @@ dependencies = [
     "matplotlib",
     "seaborn"
 ]
+dynamic = ["version"]
+
 [tool.setuptools]
 package-dir = {"" = "src"}
+[tool.setuptools_scm]
 
 [project.urls]
 Repository = "https://github.com/noudi03/PatternRecognition"

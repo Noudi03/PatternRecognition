@@ -3,16 +3,16 @@ from preprocessing import get_numerical_features
 from csv_utils import construct_absolute_path
 
 
-def check_empty_fields(path):
+def check_empty_fields(file_name):
     """Checking for any empty numerical fields in a CSV file
 
     Args:
-        path (str): Path to the CSV file
+        file_name (str): name of the CSV file
     Returns:
         None
     """
 
-    df = pd.read_csv(path)
+    df = pd.read_csv(file_name)
     numerical_df = df[get_numerical_features(df)]
 
     # checking for any missing values in the numerical dataset
@@ -31,14 +31,14 @@ def check_empty_fields(path):
         csv_file_path_filled = construct_absolute_path('housing_filled.csv')
 
         # filling the missing values with the median of the column
-        fill_empty_fields(df, csv_file_path_filled)
+        fill_empty_fields(df, csv_file_path_filled, numerical_df)
 
     else:
         print("No empty fields found in the CSV file.\n")
 
 
-def fill_empty_fields(df, path):
-    """Filling filled_df, 'filled_df, 'filled_df, 'filledpty numerical fields in the dataset with the median of the column
+def fill_empty_fields(df, path, numerical_df):
+    """Filling empty numerical fields in the dataset with the median of the column
 
     Args:
         df (pd.DataFrame): The dataset to be filled.
@@ -48,7 +48,6 @@ def fill_empty_fields(df, path):
     """
     # creating a copy of the dataset
     df_filled = df.copy()
-    numerical_df = df_filled[get_numerical_features(df)]
 
     # filling the empty fields of the dataset with the median of that fields column
     df_filled.fillna(numerical_df.median(), inplace=True)
