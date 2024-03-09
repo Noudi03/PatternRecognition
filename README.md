@@ -51,4 +51,4 @@ Note: if you cannot run the activation script, open an elevated powershell and e
 
 ## License  
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](LICENSE)
