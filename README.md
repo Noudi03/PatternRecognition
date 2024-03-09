@@ -25,7 +25,7 @@ Create a Virtual Environment named venv
   python -m venv venv
 ~~~
 
-### Activation
+## Activation
 Activate the virtual environment
 ### Windows
 ~~~bash
@@ -36,7 +36,7 @@ Note: if you cannot run the activation script, open an elevated powershell and e
 ~~~ps1
   set-executionpolicy remotesigned
 ~~~
-## Linux
+### Linux
 ~~~bash
   source venv/bin/activate
 ~~~
