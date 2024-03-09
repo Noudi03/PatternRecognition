@@ -146,7 +146,7 @@ def update_bias(bias, learning_rate, prediction, target):
     return new_bias
 
 
-def perceptron_algorithm(df, k=10, learning_rate=0.1):
+def perceptron_algorithm(df, k=10, learning_rate=0.01):
     '''
         Args:
             df(pd.Dataframe): The dataframe we plan to train and test our model on.
@@ -155,7 +155,7 @@ def perceptron_algorithm(df, k=10, learning_rate=0.1):
 
             learning_rate(float): a value that determines how radically our model updates its weights in response 
                                     to making errors.Making this value too big will make it overshoot often so its advised to keep it small(eg. 0.1,0.01 etc.).
-                                    Default set to 0.1.
+                                    Default set to 0.01.
     '''
 
     # *Note: The dataset is already preprocessed and the missing values are filled with the median of the respective column.
@@ -274,7 +274,7 @@ def perceptron_algorithm(df, k=10, learning_rate=0.1):
         # *CALCULATING MEDIAN SQUARE ERROR(MSE) AND MEDIAN ABSOLUTE ERROR(MAE)
         mse = mean_square_error(prediction, target_data)
         mae = mean_absolute_error(prediction, target_data)
-        print(f"FINAL MSE: {mse},FINAL MAE: {mae}")
         if mse < 0.75:
             passed_training = True
+            print(f"FINAL MSE: {mse},FINAL MAE: {mae}")
             print(f"--------------------------------------------\n")

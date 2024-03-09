@@ -33,7 +33,7 @@ def plot_categorical(df):
     ocean_proximity.plot(kind='barh')
 
     # adding the title and labels
-    plt.title('Distribution of Ocean Proximity in the dataset')
+    plt.title('Distribution of Ocean Proximity values in the dataset')
     plt.ylabel('Ocean Proximity')
     plt.xlabel('Frequency')
     plt.show()

@@ -24,9 +24,9 @@ def main():
     csv_file_path = construct_absolute_path('housing.csv')
     check_empty_fields(csv_file_path)
 
-    # checking for empty fields in housing_filled.csv
-    csv_file_path_filled = construct_absolute_path('housing_filled.csv')
-    check_empty_fields(csv_file_path_filled)
+    # # checking for empty fields in housing_filled.csv
+    # csv_file_path_filled = construct_absolute_path('housing_filled.csv')
+    # check_empty_fields(csv_file_path_filled)
 
     filled_df = load_dataset('housing_filled.csv')
 
